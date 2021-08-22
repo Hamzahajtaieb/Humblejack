@@ -1,0 +1,40 @@
+{% assign products_limit = section.settings.related_product_limit %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+{% assign found_a_collection = true %}
+{% assign collection = c %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if section.settings.enable_related_product %}
+<div class="lastest-product">
+  <h2 class="title24 text-uppercase font-bold">{{section.settings.related_product_title}}</h2>
+  <div class="wrap-product">
+    <div class="wrap-item text-center" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1],[560,2],[768,3],[1024,3],[1200,{{section.settings.products_per_related}}]]">
+      {% if collection and collection.products_count > 1 %}
+      {% assign current_product = product %}
+      {% assign current_product_found = false %}
+      {% for product in collection.products limit: products_limit %}
+      {% if product.handle == current_product.handle %}
+      {% assign current_product_found = true %}
+      {% else %}
+      {% unless current_product_found == false and forloop.last %}
+
+      {% include 'product-item-grid' %}
+
+      {% endunless %}
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      {% for i in (1..8) %}
+      {% include 'empty-product-item-grid' %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,105 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v11" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-header">
+      <div class="thumb-advs zoom-rotate">
+        <a href="{{section.settings.block_url}}" class="advs-thumb-link">
+          {% if section.settings.block_img != blank %}
+          <img src="{{section.settings.block_img|img_url:'master'}}" alt="banner" />
+          {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </a>
+      </div>
+      <div class="info-advs">
+        {% if section.settings.block_heading != blank %}
+        <h2 class="title30 rale-font font-bold text-uppercase dark">{{section.settings.block_heading}}</h2>
+        {% endif %}
+        
+        {% if section.settings.block_heading != blank %}
+        <h3 class="title30 text-uppercase font-bold dark">{{section.settings.block_sub_heading}}</h3>
+        {% endif %}
+        
+        {% if section.settings.block_heading != blank %}
+        <h3 class="title14 text-uppercase dark">{{section.settings.block_content}}</h3>
+        {% endif %}
+        
+        {% if section.settings.block_heading != blank %}
+        <a href="{{section.settings.block_url}}" class="hover-btn shop-button bg-color white push">{{section.settings.block_btn_name}}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div> 
+</div>
+
+{% schema %}
+{
+  "name": "Banner v11",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "block_img",
+      "label": "Image",
+      "info": "1170 x 500px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url",
+      "label": "URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading",
+      "label": "Heading",
+      "default": "SALE OF THE day"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading",
+      "label": "Sub heading",
+      "default": "40% off"
+    },
+    {
+      "type": "text",
+      "id": "block_content",
+      "label": "Content",
+      "default": "glasses collection"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name",
+      "label": "Button name",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v11",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

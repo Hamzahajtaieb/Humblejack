@@ -1,0 +1,130 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v4" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-sale">
+      <div class="thumb-banner zoom-image">
+        <a href="{{section.settings.block_url}}" class="advs-thumb-link">
+          {% if section.settings.block_img != blank %}
+          <img src="{{section.settings.block_img|img_url:'master'}}" alt="banner" />
+          {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </a>
+      </div> 
+      <div class="info-banner">
+        {% if section.settings.block_heading != blank %}
+        <h3 class="title30 text-uppercase text-italic font-bold rale-font">{{section.settings.block_heading}}</h3>
+        {% endif %}
+        
+        {% if section.settings.block_content1 != blank or section.settings.block_content2 != blank or section.settings.block_content3 != blank or section.settings.block_content4 != blank or section.settings.block_content5 != blank %}
+        <h2 class="title120 text-uppercase font-bold"><span class="title30 font-bold color upto">{{section.settings.block_content1}}<br> {{section.settings.block_content2}}</span>{{section.settings.block_content3}} <span class="title60 font-bold color">{{section.settings.block_content4}}</span><span class="title30 font-bold color text-off">{{section.settings.block_content5}}</span></h2>
+        {% endif %}
+        
+        {% if section.settings.block_des != blank %}
+        <h3 class="title18 text-uppercase rale-font font-bold">{{section.settings.block_des}}</h3>
+        {% endif %}
+        
+        {% if section.settings.block_btn_name != blank %}
+        <a href="{{section.settings.block_url}}" class="hover-btn shop-button bg-color white">{{section.settings.block_btn_name}}</a>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v4",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "block_img",
+      "label": "Image",
+      "info": "1170 x 530px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url",
+      "label": "URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading",
+      "label": "Heading",
+      "default": "Holiday this way sale"
+    },
+    {
+      "type": "text",
+      "id": "block_content1",
+      "label": "Content sale 1",
+      "default": "up"
+    },
+    {
+      "type": "text",
+      "id": "block_content2",
+      "label": "Content sale 2",
+      "default": "to"
+    },
+    {
+      "type": "text",
+      "id": "block_content3",
+      "label": "Content sale 3",
+      "default": "50"
+    },
+    {
+      "type": "text",
+      "id": "block_content4",
+      "label": "Content sale 4",
+      "default": "%"
+    },
+    {
+      "type": "text",
+      "id": "block_content5",
+      "label": "Content sale 5",
+      "default": "off"
+    },
+    {
+      "type": "text",
+      "id": "block_des",
+      "label": "Description",
+      "default": "Accessories store"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name",
+      "label": "Button name",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v4",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

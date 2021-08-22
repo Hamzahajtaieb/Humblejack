@@ -1,0 +1,157 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-product-v7" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="box-trending text-center">
+      <div class="title-box title-box-type2">
+        {% if section.settings.section_heading != blank %}
+        <h3 class="title100 rale-font">{{section.settings.section_heading}}</h3>
+        {% endif %}
+
+        {% if section.settings.section_sub_heading != blank %}
+        <h3 class="title36 rale-font text-uppercase">{{section.settings.section_sub_heading}}</h3>
+        {% endif %}
+
+        {% if section.settings.section_des != blank %}
+        <h3 class="title14 text-uppercase font-bold">{{section.settings.section_des}}</h3>
+        {% endif %}
+      </div>
+
+      
+      {% assign products_limit = section.settings.products_limit %}
+      {% assign col = section.settings.select_collection %}
+      <div class="content-box">
+        <div class="row">
+          {% for product in collections[col].products limit: products_limit %} 
+          {% assign mod_for = forloop.index | modulo: 6 %}
+
+            {% if mod_for == 1 %}
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                {% include 'product-item-v6' %}
+              {% if forloop.last %}
+              </div>
+              {% endif %}      
+
+            {% elsif mod_for == 2 %}
+              <div class="row">
+                <div class="col-md-6">
+                  {% include 'product-item-v6' %}
+                </div>     
+              {% if forloop.last %}
+              </div>
+              {% endif %} 
+
+            {% elsif mod_for == 3 %}
+                  <div class="col-md-6">
+                    {% include 'product-item-v6' %}
+                  </div>
+                </div>
+              </div>
+      
+            {% elsif mod_for == 4 %}
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="row">
+                <div class="col-md-6">
+                  {% include 'product-item-v6' %}
+                </div>
+                
+            {% elsif mod_for == 5 %}
+                <div class="col-md-6">
+                  {% include 'product-item-v6' %}
+                </div>
+              </div>
+            {% if forloop.last %}
+            </div>
+            {% endif %}
+                
+            {% elsif mod_for == 0 %}
+              {% include 'product-item-v6' %}
+            </div>
+            {% endif %}
+      
+          {% else %}
+            {% include 'empty-product-item-v7' %}
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{{collections[col].url}}" class="shop-button hover-btn white bg-color">{{section.settings.section_btn_name}}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product v7",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "section_sub_heading",
+      "label": "Sub heading",
+      "default": "TRENDING STYLE"
+    },
+    {
+      "type": "text",
+      "id": "section_des",
+      "label": "Description",
+      "default": "MOST-COVETED CLOTHING"
+    },
+    {
+      "type": "text",
+      "id": "section_btn_name",
+      "label": "Button name",
+      "default": "View all"
+    },
+    {
+      "type": "header",
+      "content": "Config"
+    },
+    {
+      "type": "collection",
+      "id": "select_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Limit products",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product v7",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,16 @@
+<div class="item-product text-center no-border-right">
+  <div class="product-thumb mid">
+    <a href="/admin/products">
+      {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+    </a>
+  </div>
+  <div class="product-info">
+    <h3 class="title14 font-bold"><a href="/admin/products" class="link-hover">Example Product</a></h3>
+    <div class="product-price">
+      <del>$96.00</del>
+      <ins class="font-bold color">$69.00</ins>
+    </div>
+    <a href="/admin/products" class="shop-button bg-color white">shop now</a>
+  </div>
+</div>

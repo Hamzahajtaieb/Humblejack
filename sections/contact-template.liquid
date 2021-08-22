@@ -1,0 +1,215 @@
+<section>
+  <div class="content-page"> 
+    <div class="container">
+      <div class="main-content-page">
+        <div class="content-contact-page">
+          <h2 class="title30 rale-font font-bold text-uppercase">{{page.title}}</h2>
+          
+          {% if section.settings.enable_section_map %}
+          <div class="map-box map-box-contact">
+            <div id="map"
+                 class="sv-ggmaps map-custom" 
+                 data-lat="{{settings.gmap_latitude}}" 
+                 data-lon="{{settings.gmap_longitude}}" 
+                 data-market="" 
+                 data-zoom="16" 
+                 data-style="gray" 
+                 data-control="false" 
+                 data-scrollwheel="false" 
+                 data-disable_ui="false" 
+                 data-draggable="false">
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if section.settings.enable_section_info %}
+          <div class="contact-page-info blockquote">
+            <div class="row">
+              {% if section.blocks.size > 0 %}
+              {% for block in section.blocks %}
+              {% if block.type == "info" %}
+              <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="contact-box">
+                  <span class="color"><i class="{{block.settings.b_info_icon}}"></i></span>
+                  <label class="title16 color text-uppercase">{{block.settings.b_info_title}}</label>
+                  <p class="desc"><a href="{{block.settings.b_info_url}}">{{block.settings.b_info_des}}</a></p>
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+          
+          <div class="contact-form-faq">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {% if section.settings.enable_section_form %}
+                <div class="contact-form">
+                  <h2 class="title18 rale-font font-bold text-uppercase">{{section.settings.s_form_title}}</h2>
+                  {% form 'contact' %}
+                  {% if form.posted_successfully? %}
+                  <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <p style="margin-bottom: 5px;">
+                      {{ 'contact.form.post_success' | t }}
+                    </p>
+                  </div>
+                  {% endif %}
+                  
+                    <input placeholder="{{'contact.form.name'|t}}" name="contact[Name]" type="text">
+                    <input placeholder="{{'contact.form.email'|t}}" name="contact[Email]" type="email">
+                    <input placeholder="{{'contact.form.subject'|t}}" name="contact[Subject]" type="text">
+                    <textarea rows="7" name="contact[Body]" placeholder="{{'contact.form.message'|t}}"></textarea>
+                    <input type="submit" value="{{'contact.form.send'|t}}" class="bg-color white text-uppercase font-bold" />
+                  {% endform %}
+                </div>
+                {% endif %}
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                {% if section.settings.enable_section_faqs %}
+                <div class="contact-faq">
+                  <h2 class="title18 rale-font font-bold text-uppercase">{{section.settings.s_faqs_title}}</h2>
+                  <div class="contact-accordion toggle-tab bg-white">
+
+                    {% if section.blocks.size > 0 %}
+                    {% for block in section.blocks %}
+                    {% if block.type == "faq" %}
+                    <div class="item-toggle-tab {% if forloop.first %}active{% endif %}">
+                      <h2 class="toggle-tab-title title14 text-uppercase font-bold">{{block.settings.b_faq_title}}</h2>
+                      <p class="desc toggle-tab-content">{{block.settings.b_faq_content}}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Contact Us",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Map"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_section_map",
+        "label": "Enable?",
+        "default": true
+      },
+      {
+        "type": "header",
+        "info": "Scroll down to the bottom and click Add content",
+        "content": "Section Info"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_section_info",
+        "label": "Enable?",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Section Form"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_section_form",
+        "label": "Enable?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "s_form_title",
+        "label": "Title",
+        "default": "Contact Form"
+      },
+      {
+        "type": "header",
+        "info": "Scroll down to the bottom and click Add content",
+        "content": "Section FAQs"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_section_faqs",
+        "label": "Enable?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "s_faqs_title",
+        "label": "Title",
+        "default": "FAQ"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "info",
+        "name": "Info",
+        "settings": [
+          {
+            "type": "text",
+            "id": "b_info_icon",
+            "label": "Icon",
+            "default": "fas fa-university",
+            "info": "[Get icon from here](https:\/\/fontawesome.com\/cheatsheet)"
+          },
+          {
+            "type": "text",
+            "id": "b_info_title",
+            "label": "Title",
+            "default": "Address"
+          },
+          {
+            "type": "text",
+            "id": "b_info_des",
+            "label": "Content",
+            "default": "The Company Name Inc. 4320 St Vincent Place,Glasgow, DC 28"
+          },
+          {
+            "type": "url",
+            "id": "b_info_url",
+            "label": "URL",
+            "default": "/collections/all"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "b_faq_title",
+            "label": "Title",
+            "default": "AT VERO EOS ET ACCUSAMUS ET IUSTO"
+          },
+          {
+            "type": "textarea",
+            "id": "b_faq_content",
+            "label": "Content",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid animi archi tecto aspernatur assumenda cum inventore labore magnam"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

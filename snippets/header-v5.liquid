@@ -1,0 +1,67 @@
+<header id="header">
+  <div class="header">  
+    {% if settings.enable_hdv5_topbar %}
+    <div class="sub-header sub-header5 white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="call-us">
+              <span class="text-uppercase title12"><i class="{{settings.hdv5_topbar_phone_icon}}"></i>{{settings.hdv5_topbar_phone_content}}</span>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <ul class="list-inline-block pull-right box-search-cart box-search-cart5">
+              <li>
+                <div class="search-box">
+                  <a href="/search" class="text-uppercase title12 link-hover white"><i class="{{section.settings.header_search_icon}}"></i>{{settings.hdv5_topbar_search_title}}</a>
+                  <form class="search-form clearfix" action="/search">
+                    <input type="hidden" name="type" value="product">
+                    <input type="text" placeholder="Search" name="q" value="{{ search.terms | escape }}"/>
+                    <div class="submit bg-color text-center">
+                      <input type="submit" value="">
+                    </div>	
+                  </form>
+                </div>
+              </li>
+              <li>
+                <a href="/account" class="text-uppercase title12 link-hover white"><i class="{{section.settings.header_account_icon}}"></i> {{settings.hdv5_topbar_account_title}}</a>
+              </li>
+              <li>
+                <div class="mini-cart-box aside-box style-mini-cart">
+                  <div class="mini-cart-link">
+                    <a class="link-hover text-uppercase title12 mini-cart-icon white" href="/cart"><i class="{{section.settings.header_cart_icon}}"></i>{{settings.hdv5_topbar_cart_title}}</a>
+                  </div>
+                  {% include 'mini-cart' %}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="main-header main-header-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="logo text-center">
+              <a href="/" class="color title30 text-uppercase rale-font link-hover" style="display: block; margin: 0 auto; width: {{settings.hdv5_logo_maxwidth}}px;">
+                {% if settings.hdv5_logo != blank %}
+                <img src="{{settings.hdv5_logo|img_url:'master'}}">
+                {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <nav class="main-nav main-nav5 text-center">
+              {% include 'menu' %}
+              <a href="#" class="toggle-mobile-menu"><span></span></a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

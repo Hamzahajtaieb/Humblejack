@@ -1,0 +1,241 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-and-product" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="content-page content-page10"> 
+    <div class="banner-slider banner-slider-10 control-slider">
+      <div class="wrap-item" data-pagination="false" data-autoplay="true" data-transition="fade" data-navigation="false" data-itemscustom="[[0,1]]">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "block" %}
+        <div class="item-slider item-slider10 fixed_banner_info">
+          <div class="banner-thumb">
+            <a href="{{block.settings.block_btn_url}}">
+              {% if block.settings.block_image != blank %}
+              	<img src="{{block.settings.block_image|img_url:'master'}}" alt="slideshow" />
+              {% else %}
+                {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </a>
+          </div>
+          <div class="item-lookbook border-bottom">
+            <div class="row">
+              <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="box-left">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                      <div class="thumb-look">
+                        <a href="{{block.settings.p_banner_url}}">
+                          {% if block.settings.p_banner_img != blank %}
+                          <img src="{{block.settings.p_banner_img|img_url:'master'}}" alt="banner" />
+                          {% else %}
+                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                          {% endif %}
+                        </a>
+                      </div>
+                    </div>
+                    
+                    {% assign products_limit = block.settings.products_limit %}
+                    {% assign col = block.settings.select_collection %}
+                    <div class="col-md-6 col-sm-6">
+                      <div class="detail-look">
+                        <div class="engoc-row-equal">
+                          {% for product in collections[col].products limit: products_limit %}
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                          	{% include 'product-item-new' %}
+                            </div>
+                          {% else %}
+                            {% for i in (1..4) %}
+                              <div class="col-md-6 col-sm-6 col-xs-6">
+                              {% include 'empty-product-item-new' %}
+                              </div>
+                            {% endfor %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="banner-info banner-info10 text-right">
+            <div class="wrap-info text-center">
+              <div class="title-box title-text-bg">
+                <h3 class="title12 text-uppercase">{{block.settings.block_heading}}</h3>
+                <h2 class="title30 text-uppercase rale-font"><span>{{block.settings.block_sub_heading}}</span></h2>
+                <h3 class="title14 text-uppercase font-bold">{{block.settings.block_content1}}</h3>
+                <h3 class="title240 rale-font text-uppercase">{{block.settings.block_content2}}</h3>
+              </div>
+              <p class="desc">{{block.settings.block_content3}}</p>
+              <a href="{{block.settings.block_btn_url}}" class="shop-button bg-color white hover-btn">{{block.settings.block_btn_name}}</a>
+              <div class="control-btn">
+                <a href="#" class="prev"><i class="fa fa-angle-left"></i></a>
+                <a href="#" class="next"><i class="fa fa-angle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div> 
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow & Product",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Slideshow"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "info": "1920 x 700px recommended",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "block_btn_url",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading",
+          "default": "m o l t e s t o r e"
+        },
+        {
+          "type": "text",
+          "id": "block_sub_heading",
+          "label": "Sub heading",
+          "default": "look 01"
+        },
+        {
+          "type": "text",
+          "id": "block_content1",
+          "label": "Content 1",
+          "default": "women's collection"
+        },
+        {
+          "type": "text",
+          "id": "block_content2",
+          "label": "Content 2",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "block_content3",
+          "label": "Content 3",
+          "default": "Discover fashion bags for ladies online by Molte Store. Find fashion shoes of high quality by filtering according to your needs!"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name",
+          "label": "Button name",
+          "default": "shop the look"
+        },
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "p_banner_img",
+          "label": "Banner image",
+          "info": "580 x 768px recommended"
+        },
+        {
+          "type": "url",
+          "id": "p_banner_url",
+          "label": "Banner URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "collection",
+          "id": "select_collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Limit products",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "default": 4
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow & Product",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "block",
+          "settings": {
+            "block_sub_heading": "look 01",
+            "block_content2": "01"
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+            "block_sub_heading": "look 02",
+            "block_content2": "02"
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+            "block_sub_heading": "look 03",
+            "block_content2": "03"
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+            "block_sub_heading": "look 04",
+            "block_content2": "04"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

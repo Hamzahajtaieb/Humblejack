@@ -1,0 +1,79 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+{% assign file_extension = 'png' %}
+{% capture variantsswatch %} {% endcapture %}
+{% if swatch == "Color" %}
+	{% capture variantsswatch %}{{ 'products.variants.color' | t }}{% endcapture %}
+{% elsif swatch == "Size" %}
+	{% capture variantsswatch %}{{ 'products.variants.size' | t }}{% endcapture %}
+{% else %}
+	{% capture variantsswatch %}{{ swatch }}{% endcapture %}
+{% endif %}
+{% if swatch == blank %}
+    <div class="swatch error">
+        <p>You must include the snippet swatch.liquid with the name of a product option.</p>
+        <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+        <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+    </div>
+{% else %}
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign option_index = 0 %}
+{% assign indexChild = 0 %}
+{% for option in product.options %}
+    {% if option == swatch %}
+        {% assign found_option = true %}
+        {% assign option_index = forloop.index0 %}
+		{% assign indexChild = forloop.index %}
+		<style rel="stylesheet" type="text/css">
+          	.proVariants .selector-wrapper:nth-child({{ indexChild }}){display: none;}
+        </style>
+        {% assign downcased_option = swatch | downcase %}
+        {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+            {% assign is_color = true %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% unless found_option %}
+
+{% else %}
+<div class="">
+  <div class="swatch clearfix" data-option-index="{{ option_index }}">
+    <p class="engo-swatch-label">{{ variantsswatch }}:</p>
+    {% assign values = '' %}
+    {% for variant in product.variants %}
+    {% assign value = variant.options[option_index] %}
+    {% unless values contains value %}
+    {% assign values = values | join: ',' %}
+    {% assign values = values | append: ',' | append: value %}
+    {% assign values = values | split: ',' %}
+
+    <div data-value="{{ value | escape }}"  data-style="square" class="none swatch-element {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}" {% if variant.available %}{% else %}data-toggle="tooltip" data-placement="top"  data-original-title="Sold Out"{% endif %}>
+      {% if is_color %}
+      <div class="tooltip">{{ value }}</div>
+      {% endif %}
+      <input id="swatch-{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
+      {% if is_color %}
+      <label for="swatch-{{ option_index }}-{{ value | handle }}" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }}); background-size: cover;">
+        <div class="crossed-out"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 15.642 15.642" enable-background="new 0 0 15.642 15.642" width="25px" height="25px"><path fill-rule="evenodd" d="M8.882,7.821l6.541-6.541c0.293-0.293,0.293-0.768,0-1.061  c-0.293-0.293-0.768-0.293-1.061,0L7.821,6.76L1.28,0.22c-0.293-0.293-0.768-0.293-1.061,0c-0.293,0.293-0.293,0.768,0,1.061  l6.541,6.541L0.22,14.362c-0.293,0.293-0.293,0.768,0,1.061c0.147,0.146,0.338,0.22,0.53,0.22s0.384-0.073,0.53-0.22l6.541-6.541  l6.541,6.541c0.147,0.146,0.338,0.22,0.53,0.22c0.192,0,0.384-0.073,0.53-0.22c0.293-0.293,0.293-0.768,0-1.061L8.882,7.821z" fill="#000000"/></svg></div>
+      </label>
+      {% else %}
+      <label for="swatch-{{ option_index }}-{{ value | handle }}" style="font-weight: 400;">
+        {{ value }}
+        <div class="crossed-out"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 15.642 15.642" enable-background="new 0 0 15.642 15.642" width="25px" height="25px"><path fill-rule="evenodd" d="M8.882,7.821l6.541-6.541c0.293-0.293,0.293-0.768,0-1.061  c-0.293-0.293-0.768-0.293-1.061,0L7.821,6.76L1.28,0.22c-0.293-0.293-0.768-0.293-1.061,0c-0.293,0.293-0.293,0.768,0,1.061  l6.541,6.541L0.22,14.362c-0.293,0.293-0.293,0.768,0,1.061c0.147,0.146,0.338,0.22,0.53,0.22s0.384-0.073,0.53-0.22l6.541-6.541  l6.541,6.541c0.147,0.146,0.338,0.22,0.53,0.22c0.192,0,0.384-0.073,0.53-0.22c0.293-0.293,0.293-0.768,0-1.061L8.882,7.821z" fill="#000000"/></svg></div>
+      </label>
+      {% endif %}
+    </div>
+
+    {% endunless %}
+    {% if variant.available %}
+    <script>
+      jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+    </script>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endunless %}
+{% endif %}

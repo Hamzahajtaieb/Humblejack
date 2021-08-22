@@ -1,0 +1,282 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="banner-slider banner-slider-3">
+    <div class="wrap-item" data-pagination="{% if section.settings.enable_dots %}true{% else %}false{% endif %}" data-autoplay="true" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1]]">
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+      {% if block.type == "image" %}
+      <div class="item-slider">
+        <div class="banner-thumb">
+          <a href="{{block.settings.block_btn_url}}">
+            {% if block.settings.block_image != blank %}
+            {{ block.settings.block_image | img_url:'master' | img_tag: block.settings.block_sub_heading, 'img-responsive' }}
+            {% else %}
+            {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </a>
+        </div>
+        <div class="banner-info {% if block.settings.text_alignment == "left" %}text-left{% elsif block.settings.text_alignment == "center" %}text-center{% elsif block.settings.text_alignment == "right" %}text-right{% endif %} animated" data-animated="{{block.settings.text_effect}}">
+          <div class="container">
+            <div class="wrap-banner-info text-center">
+              {% if block.settings.block_heading != blank %}
+              <h2 class="title60 rale-font font-bold text-uppercase dark">{{block.settings.block_heading}}</h2>
+              {% endif %}
+              
+              {% if block.settings.block_sub_heading != blank %}
+              <h3 class="title36 text-uppercase rale-font dark">{{block.settings.block_sub_heading}}</h3>
+              {% endif %}
+              
+              <div class="sale-off">
+                {% if block.settings.block_content1 != blank %}
+                <span class="text-uppercase font-bold title30 dark">{{block.settings.block_content1}}</span>
+                {% endif %}
+                
+                {% if block.settings.block_content2 != blank or block.settings.block_content3 != blank or block.settings.block_content4 != blank %}
+                <h2 class="title260 poiret-font color"><span class="number">{{block.settings.block_content2}}</span><span class="number">{{block.settings.block_content3}}</span> <span class="title60 poiret-font color text-uppercase">{{block.settings.block_content4}}</span></h2>
+                {% endif %}
+                
+                {% if block.settings.block_btn_name != blank %}
+                <a href="{{block.settings.block_btn_url}}" class="hover-btn shop-button bg-color white">{{block.settings.block_btn_name}}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div> 
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow v1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_dots",
+      "label": "Enable dots?",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "info": "1920 x 800px recommended",
+          "label": "Image"
+        },
+        {
+           "type": "select",
+           "id": "text_alignment",
+           "options": [
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"},
+              { "value": "right", "label": "Right"}
+           ],
+           "label": "Text alignment"
+        },
+        {
+           "type": "select",
+           "id": "text_effect",
+           "options": [
+              { "value": "bounce", "label": "bounce", "group": "Attention Seekers"},
+              { "value": "flash", "label": "flash", "group": "Attention Seekers"},
+              { "value": "pulse", "label": "pulse", "group": "Attention Seekers"},
+              { "value": "rubberBand", "label": "rubberBand", "group": "Attention Seekers"},
+              { "value": "shake", "label": "shake", "group": "Attention Seekers"},
+              { "value": "swing", "label": "swing", "group": "Attention Seekers"},
+              { "value": "tada", "label": "tada", "group": "Attention Seekers"},
+              { "value": "wobble", "label": "wobble", "group": "Attention Seekers"},
+              { "value": "jello", "label": "jello", "group": "Attention Seekers"},
+
+              { "value": "bounceIn", "label": "bounceIn", "group": "Bouncing Entrances"},
+              { "value": "bounceInDown", "label": "bounceInDown", "group": "Bouncing Entrances"},
+              { "value": "bounceInLeft", "label": "bounceInLeft", "group": "Bouncing Entrances"},
+              { "value": "bounceInRight", "label": "bounceInRight", "group": "Bouncing Entrances"},
+              { "value": "bounceInUp", "label": "bounceInUp", "group": "Bouncing Entrances"},
+
+              { "value": "bounceOut", "label": "bounceOut", "group": "Bouncing Exits"},
+              { "value": "bounceOutDown", "label": "bounceOutDown", "group": "Bouncing Exits"},
+              { "value": "bounceOutLeft", "label": "bounceOutLeft", "group": "Bouncing Exits"},
+              { "value": "bounceOutRight", "label": "bounceOutRight", "group": "Bouncing Exits"},
+              { "value": "bounceOutUp", "label": "bounceOutUp", "group": "Bouncing Exits"},
+
+              { "value": "fadeIn", "label": "fadeIn", "group": "Fading Entrances"},
+              { "value": "fadeInDown", "label": "fadeInDown", "group": "Fading Entrances"},
+              { "value": "fadeInDownBig", "label": "fadeInDownBig", "group": "Fading Entrances"},
+              { "value": "fadeInLeft", "label": "fadeInLeft", "group": "Fading Entrances"},
+              { "value": "fadeInLeftBig", "label": "fadeInLeftBig", "group": "Fading Entrances"},
+              { "value": "fadeInRight", "label": "fadeInRight", "group": "Fading Entrances"},
+              { "value": "fadeInRightBig", "label": "fadeInRightBig", "group": "Fading Entrances"},
+              { "value": "fadeInUp", "label": "fadeInUp", "group": "Fading Entrances"},
+              { "value": "fadeInUpBig", "label": "fadeInUpBig", "group": "Fading Entrances"},
+
+
+              { "value": "fadeOut", "label": "fadeOut", "group": "Fading Exits"},
+              { "value": "fadeOutDown", "label": "fadeOutDown", "group": "Fading Exits"},
+              { "value": "fadeOutDownBig", "label": "fadeOutDownBig", "group": "Fading Exits"},
+              { "value": "fadeOutLeft", "label": "fadeOutLeft", "group": "Fading Exits"},
+              { "value": "fadeOutLeftBig", "label": "fadeOutLeftBig", "group": "Fading Exits"},
+              { "value": "fadeOutRight", "label": "fadeOutRight", "group": "Fading Exits"},
+              { "value": "fadeOutRightBig", "label": "fadeOutRightBig", "group": "Fading Exits"},
+              { "value": "fadeOutUp", "label": "fadeOutUp", "group": "Fading Exits"},
+              { "value": "fadeOutUpBig", "label": "fadeOutUpBig", "group": "Fading Exits"},
+
+
+              { "value": "flip", "label": "flip", "group": "Flippers"},
+              { "value": "flipInX", "label": "flipInX", "group": "Flippers"},
+              { "value": "flipInY", "label": "flipInY", "group": "Flippers"},
+              { "value": "flipOutX", "label": "flipOutX", "group": "Flippers"},
+              { "value": "flipOutY", "label": "flipOutY", "group": "Flippers"},
+
+              { "value": "lightSpeedIn", "label": "lightSpeedIn", "group": "Lightspeed"},
+              { "value": "lightSpeedOut", "label": "lightSpeedOut", "group": "Lightspeed"},
+
+              { "value": "rotateIn", "label": "rotateIn", "group": "Rotating Entrances"},
+              { "value": "rotateInDownLeft", "label": "rotateInDownLeft", "group": "Rotating Entrances"},
+              { "value": "rotateInDownRight", "label": "rotateInDownRight", "group": "Rotating Entrances"},
+              { "value": "rotateInUpLeft", "label": "rotateInUpLeft", "group": "Rotating Entrances"},
+              { "value": "rotateInUpRight", "label": "rotateInUpRight", "group": "Rotating Entrances"},
+
+              { "value": "rotateOut", "label": "rotateOut", "group": "Rotating Exits"},
+              { "value": "rotateOutDownLeft", "label": "rotateOutDownLeft", "group": "Rotating Exits"},
+              { "value": "rotateOutDownRight", "label": "rotateOutDownRight", "group": "Rotating Exits"},
+              { "value": "rotateOutUpLeft", "label": "rotateOutUpLeft", "group": "Rotating Exits"},
+              { "value": "rotateOutUpRight", "label": "rotateOutUpRight", "group": "Rotating Exits"},
+
+              { "value": "slideInUp", "label": "slideInUp", "group": "Sliding Entrances"},
+              { "value": "slideInDown", "label": "slideInDown", "group": "Sliding Entrances"},
+              { "value": "slideInLeft", "label": "slideInLeft", "group": "Sliding Entrances"},
+              { "value": "slideInRight", "label": "slideInRight", "group": "Sliding Entrances"},
+
+              { "value": "slideOutUp", "label": "slideOutUp", "group": "Sliding Exits"},
+              { "value": "slideOutDown", "label": "slideOutDown", "group": "Sliding Exits"},
+              { "value": "slideOutLeft", "label": "slideOutLeft", "group": "Sliding Exits"},
+              { "value": "slideOutRight", "label": "slideOutRight", "group": "Sliding Exits"},
+
+              { "value": "zoomIn", "label": "zoomIn", "group": "Zoom Entrances"},
+              { "value": "zoomInDown", "label": "zoomInDown", "group": "Zoom Entrances"},
+              { "value": "zoomInLeft", "label": "zoomInLeft", "group": "Zoom Entrances"},
+              { "value": "zoomInRight", "label": "zoomInRight", "group": "Zoom Entrances"},
+              { "value": "zoomInUp", "label": "zoomInUp", "group": "Zoom Entrances"},
+
+              { "value": "zoomOut", "label": "zoomOut", "group": "Zoom Exits"},
+              { "value": "zoomOutDown", "label": "zoomOutDown", "group": "Zoom Exits"},
+              { "value": "zoomOutLeft", "label": "zoomOutLeft", "group": "Zoom Exits"},
+              { "value": "zoomOutRight", "label": "zoomOutRight", "group": "Zoom Exits"},
+              { "value": "zoomOutUp", "label": "zoomOutUp", "group": "Zoom Exits"},
+
+              { "value": "hinge", "label": "hinge", "group": "Specials"},
+              { "value": "jackInTheBox", "label": "jackInTheBox", "group": "Specials"},
+              { "value": "rollIn", "label": "rollIn", "group": "Specials"},
+              { "value": "rollOut", "label": "rollOut", "group": "Specials"}
+           ],
+           "label": "Effect for content",
+           "default": "zoomInLeft"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading",
+          "default": "THE BIGGEST"
+        },
+        {
+          "type": "text",
+          "id": "block_sub_heading",
+          "label": "Sub heading",
+          "default": "SALE OF THE DAY"
+        },
+        {
+          "type": "text",
+          "id": "block_content1",
+          "label": "Content deal 1",
+          "default": "save up to"
+        },
+        {
+          "type": "text",
+          "id": "block_content2",
+          "label": "Content deal 2",
+          "default": "4"
+        },
+        {
+          "type": "text",
+          "id": "block_content3",
+          "label": "Content deal 3",
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "block_content4",
+          "label": "Content deal 4",
+          "default": "% off"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name",
+          "label": "Button name",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "block_btn_url",
+          "label": "Button URL",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow v1",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

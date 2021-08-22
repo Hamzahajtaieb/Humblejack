@@ -1,0 +1,222 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v12" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+    {% if block.type == "banner" %}
+    <div class="collection9">
+      <div class="row">
+        <div class="col-md-7 col-sm-7 col-xs-6">
+          <div class="banner-advs9 banner-advs-left">
+            <div class="thumb-advs pull-curtain">
+              <a href="{{block.settings.block_url_left}}" class="advs-thumb-link">
+                {% if block.settings.block_img_left != blank %}
+                <img src="{{block.settings.block_img_left|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            
+            {% if block.settings.block_heading_left != blank or block.settings.block_content1_left != blank or block.settings.block_content2_left != blank or block.settings.block_content3_left != blank or block.settings.block_content4_left != blank or block.settings.block_content5_left != blank or block.settings.block_btn_name_left != blank %}
+            <div class="info-advs info-advs9 text-center">
+              {% if block.settings.block_heading_left != blank %}
+              <span class="text-uppercase rale-font font-bold title30">{{block.settings.block_heading_left}}</span>
+              {% endif %}
+
+              {% if block.settings.block_content1_left != blank or block.settings.block_content2_left != blank or block.settings.block_content3_left != blank or block.settings.block_content4_left != blank or block.settings.block_content5_left != blank %}
+              <h2 class="title150 poiret-font color"><span class="text-uppercase rale-font font-bold title30">{{block.settings.block_content1_left}}</span><span class="number">{{block.settings.block_content2_left}}</span><span class="number">{{block.settings.block_content3_left}}</span> <span class="title40 poiret-font color text-uppercase">{{block.settings.block_content4_left}}<br> {{block.settings.block_content5_left}}</span></h2>
+              {% endif %}
+
+              {% if block.settings.block_btn_name_left != blank %}
+              <a href="{{block.settings.block_url_left}}" class="hover-btn shop-button bg-color white">{{block.settings.block_btn_name_left}}</a>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-6">
+          <div class="banner-advs9 banner-advs-right">
+            <div class="thumb-advs pull-curtain">
+              <a href="{{block.settings.block_url1}}" class="advs-thumb-link">
+                {% if block.settings.block_img1 != blank %}
+                <img src="{{block.settings.block_img1|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="thumb-advs pull-curtain">
+              <a href="{{block.settings.block_url2}}" class="advs-thumb-link">
+                {% if block.settings.block_img2 != blank %}
+                <img src="{{block.settings.block_img2|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v12",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Banner Left"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_img_left",
+          "label": "Image",
+          "info": "700 x 980px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url_left",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "block_heading_left",
+          "label": "Heading",
+          "default": "SALE OF THE DAY"
+        },
+        {
+          "type": "text",
+          "id": "block_content1_left",
+          "label": "Content deal 1",
+          "default": "up to"
+        },
+        {
+          "type": "text",
+          "id": "block_content2_left",
+          "label": "Content deal 2",
+          "default": "5"
+        },
+        {
+          "type": "text",
+          "id": "block_content3_left",
+          "label": "Content deal 3",
+          "default": "0"
+        },
+        {
+          "type": "text",
+          "id": "block_content4_left",
+          "label": "Content deal 4",
+          "default": "%"
+        },
+        {
+          "type": "text",
+          "id": "block_content5_left",
+          "label": "Content deal 5",
+          "default": "off"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name_left",
+          "label": "Button name",
+          "default": "shop now"
+        },
+        {
+          "type": "header",
+          "content": "Banner Right 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_img1",
+          "label": "Image 1",
+          "info": "420 x 587px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url1",
+          "label": "URL 1",
+          "default": "/collections/all"
+        },
+        {
+          "type": "header",
+          "content": "Banner Right 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_img2",
+          "label": "Image 2",
+          "info": "420 x 587px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url2",
+          "label": "URL 2",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v12",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

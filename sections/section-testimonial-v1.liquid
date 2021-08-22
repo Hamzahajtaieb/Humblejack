@@ -1,0 +1,158 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-testimonial-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="box-customers bg-gray" style="background: {{section.settings.bg_color}};">
+    <div class="container">
+      <div class="title-box">
+        {% if section.settings.section_heading != blank %}
+        <h3 class="title12 text-uppercase">{{section.settings.section_heading}}</h3>
+        {% endif %}
+        
+        {% if section.settings.section_sub_heading != blank %}
+        <h2 class="title30 text-uppercase rale-font"><span style="background: {{section.settings.bg_color}};">{{section.settings.section_sub_heading}}</span></h2>
+        {% endif %}
+        
+        {% if section.settings.section_des != blank %}
+        <h3 class="title14 text-uppercase font-bold">{{section.settings.section_des}}</h3>
+        {% endif %}
+      </div>
+      <div class="row">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "testimonial" %}
+        <div class="col-md-6 col-sm-6">
+          <div class="item-customer">
+            <p class="desc text-italic title18 bg-white">{{block.settings.block_content}}</p>
+            <div class="box-avatar table">
+              <div class="thumb-box">
+                <a href="{{block.settings.block_url}}" class="advs-thumb-link">
+                  {% if block.settings.block_img != blank %}
+                  {{ block.settings.block_img | img_url:'master' | img_tag: block.settings.block_sub_heading, 'img-responsive' }}
+                  {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+              <div class="info-box">
+                <h3 class="title18 font-bold"><a href="{{block.settings.block_url}}" class="link-hover">{{block.settings.block_name}}</a></h3>
+                <p class="desc silver">{{block.settings.block_info}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonial v1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f5f7fa"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "m o l t e s t o r e"
+    },
+    {
+      "type": "text",
+      "id": "section_sub_heading",
+      "label": "Sub heading",
+      "default": "HAPPY CUSTOMERS"
+    },
+    {
+      "type": "text",
+      "id": "section_des",
+      "label": "Description",
+      "default": "YOU’VE GOT TO EXPECT THOUSANDS OF NICE REVIEWS!"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_img",
+          "label": "Image",
+          "info": "100 x 100px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "textarea",
+          "id": "block_content",
+          "label": "Content",
+          "default": "I have a thing for sunglasses, like I do indeed collect these and I have a real big range of it at home. Luckily, stores like this one let me indulge in this hobby furthermore!"
+        },
+        {
+          "type": "text",
+          "id": "block_name",
+          "label": "Name",
+          "default": "Mr.Jay"
+        },
+        {
+          "type": "text",
+          "id": "block_info",
+          "label": "Info",
+          "default": "Designer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial v1",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

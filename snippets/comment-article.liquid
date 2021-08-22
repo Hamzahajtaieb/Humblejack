@@ -1,0 +1,65 @@
+{% assign number_of_comments = article.comments_count %}
+{% if comment and comment.created_at %}
+{% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+{% paginate article.comments by 5 %}
+<div class="box-thought mt-30">
+  {% if article.comments_count > 0 %}
+  <h3 class="title18 text-uppercase font-bold">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }} ON “{{ article.title }}”</h3>
+  {% endif %}
+  
+  {% if comment and comment.created_at %}
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p>
+      {% if blog.moderated? %}
+      {{ 'blogs.comments.success_moderated' | t }}
+      {% else %}
+      {{ 'blogs.comments.success' | t }}
+      {% endif %}
+    </p>
+  </div>
+  {% endif %}
+  
+  {% if article.comments_count > 0 %}
+  <div class="comment-list list-none">
+    {% comment %}
+    If a comment was just submitted with no blank field, show it.
+    {% endcomment %}
+    {% if comment and comment.created_at %}
+    {% include 'comment' %}
+    {% endif %}
+
+    {% comment %}
+    Showing the rest of the comments.
+    {% endcomment %}
+    {% for comment in article.comments %}
+    {% include 'comment' %}
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="box-rep-comment">	
+  <h3 class="title18 text-uppercase font-bold">{{ 'blogs.comments.title' | t }}</h3>
+  <p class="desc">{{ 'blogs.comments.des' | t }}</p>
+  {% form 'new_comment', article %}
+  <div class="rep-comment-form clearfix">
+    <div class="input-text input-user">
+     <input name="comment[author]" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}" type="text" required>
+    </div>
+    <div class="input-text input-email">
+      <input name="comment[email]" value="{{ form.email }}" placeholder="{{ 'blogs.comments.email' | t }}" type="email" required>
+    </div>
+    <div class="input-text input-comment">
+      <textarea name="comment[body]" placeholder="{{ 'blogs.comments.message' | t }}" cols="30" rows="10" required>{{form.body}}</textarea>
+    </div>
+    <div class="submit bg-color hover-btn text-center">
+      <input type="submit" value="{{ 'blogs.comments.submit' | t }}" style="padding: 0;">
+    </div>	
+  </div>
+  {% endform %}
+</div>
+
+{% endpaginate %}

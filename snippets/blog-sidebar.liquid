@@ -1,0 +1,136 @@
+<div class="sidebar-left">
+  {% if section.settings.enable_related_post %}
+  
+  {%- assign posts_limit = section.settings.blogs_limit -%}
+  {%- assign blog_selected = section.settings.select_blog -%}
+  <div class="widget widget-recent-post widget-recent-post2 bg-white border">
+    <h2 class="widget-title title14 text-uppercase font-bold">{{section.settings.widget_related_title}}</h2>
+    {% for article in blogs[blog_selected].articles limit: posts_limit %}
+    <div class="post-info">
+      <span class="title10 text-uppercase silver">{{blog.title}}</span>
+      <h3 class="title14 font-bold"><a href="{{ article.url }}" class="link-hover">{{ article.title }}</a></h3>
+      <ul class="list-inline-block post-date">
+        <li><span class="font-bold">{{ article.published_at | date: "%b %d,%Y" }}</span></li>
+        <li><a href="{{ article.url }}/#comments" class="font-bold"><i class="far fa-comment"></i>{{article.comments_count}}</a></li>
+      </ul>
+    </div>
+    {% endfor %}
+  </div> 
+  {% endif %}
+  
+  {% if section.settings.enable_banner_product %}
+  <div class="widget widget-banner2 zoom-rotate overlay-image">
+    <a href="{{section.settings.banner_product_url}}" class="advs-thumb-link">
+      {% if section.settings.banner_product_img != blank %}
+      <img src="{{section.settings.banner_product_img|img_url:'master'}}" alt="banner" />
+      {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </a>
+  </div>
+  {% endif %}
+  
+  {% if section.settings.enable_widget_tag %}
+  <div class="widget widget-tag border">
+    <h2 class="widget-title title14 text-uppercase font-bold">{{section.settings.shop_by_tag_title}}</h2>
+    <ul class="list-inline-block">
+      {% for tag in article.tags %}
+      <li>
+        <a class="border" href="/blogs/{{blog.handle}}/tagged/{{tag}}" title="Show articles tagged {{tag}}">{{tag}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  
+  {% if section.settings.enable_best_product %}
+  <div class="widget widget-rate-product widget-rate-product2 bg-white border">
+    <h2 class="widget-title title14 text-uppercase font-bold">{{section.settings.best_product_title}}</h2>
+    {% assign products_limit = section.settings.best_product_limit %}
+    {% assign col = section.settings.best_product_collection %}
+    <ul class="list-none">
+      {% for product in collections[col].products limit: products_limit %}
+      <li>
+        <div class="item-product table">
+          <div class="product-thumb text-center zoom-rotate overlay-image">
+            <a href="{{ product.url | within: collection }}" class="advs-thumb-link">
+              <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" />
+            </a>
+          </div>
+          <div class="product-info">
+            <span class="title10 text-uppercase">{{ product.type }}</span>
+            <h3 class="title14 font-bold"><a href="{{ product.url | within: collection }}" class="link-hover">{{ product.title }}</a></h3>
+            <div class="product-rate">
+              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            </div>
+            <ul class="list-inline-block product-price">
+              <li>	
+                {% capture price %}{{ product.price | money }}{% endcapture %}
+                {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+                <ins class="font-bold color">{% if product.price_varies %}{{ 'products.general.from_text_html' | t: price: price }}{% else %}{{ price }}{% endif %}</ins>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      {% else %}
+        {% for i in (1..3) %}
+        <li>
+          <div class="item-product table">
+            <div class="product-thumb text-center zoom-rotate overlay-image">
+              <a href="/admin/products" class="advs-thumb-link">
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              </a>
+            </div>
+            <div class="product-info">
+              <span class="title10 text-uppercase">Type</span>
+              <h3 class="title14 font-bold"><a href="/admin/products" class="link-hover">Example Product</a></h3>
+              <div class="product-rate">
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              </div>
+              <ul class="list-inline-block product-price">
+                <li>	
+                  <del>$96.00</del>
+                  <ins class="font-bold color">$69.00</ins>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  
+  {% if section.settings.enable_widget_cate %}
+  <div class="widget widget-cate border">
+    <h2 class="widget-title title14 text-uppercase font-bold">{{section.settings.widget_cate_title}}</h2>
+    <div class="widget-content">
+      <ul class="list-none">
+        {% for link in linklists[section.settings.widget_cate_menu].links %}
+
+        {% assign item = link.title | downcase %}
+        {% assign child_list_handle = link.title | handleize %}
+
+        {% if linklists[child_list_handle].links != blank %}
+        <li class="has-sub-cat">
+          <a href="#">{{ link.title }}</a>
+          <ul class="list-none">
+            {% for childlink in linklists[child_list_handle].links %}
+            <li><a href="{{ childlink.url }}" class="title12">{{ childlink.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        {% else %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endif %}
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>

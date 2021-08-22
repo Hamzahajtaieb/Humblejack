@@ -1,0 +1,38 @@
+<div class="error-popup engo-popup engoc_hide_mobile">
+  <div class="overlay"></div>
+  <div class="popup-inner content">
+    <div class="error-message"></div>
+  </div>
+</div>
+
+<div class="product-popup engo-popup engoc_hide_mobile">
+  <div class="overlay"></div>
+  <div class="content">
+    <a href="javascript:void(0)" class="close-window">
+      <i class="fa fa-close"></i>
+    </a>
+    <div class="mini-product-item row">
+      <div class="col-md-3 col-sm-3 product-image f-left">
+        <img alt="img" src="{{'favicon.png' | asset_url}}" style="max-width:120px; height:auto"/>
+      </div>
+      <div class="col-md-9 col-sm-9 f-left">
+        <div class="product-info f-left">
+          <p class="product-name"></p>
+          <p class="success-message">{{ 'popup.cart' | t }}</p>
+
+        </div>
+        <div class="actions mt-24">
+          <button class="continue-shopping shop-button bg-dark" onclick="javascript:void(0)">{{ 'popup.continue' | t }}</button>
+          <button class="shop-button bg-dark " onclick="window.location='/cart'">{{ 'popup.goto_cart' | t }}</button>
+        </div>  
+      </div>
+    </div>
+
+  </div>    
+</div>
+
+<script>
+  $(document).on('click','.overlay, .continue-shopping, .close-window', function() {   
+    $(".engo-popup").hide();
+  });
+</script>

@@ -1,0 +1,109 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-product-v8" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    {% assign products_limit = section.settings.products_limit %}
+    {% assign col = section.settings.select_collection %}
+
+    <div class="box-bestseller box-bestseller8">
+      <div class="title border-bottom">
+        <h3 class="title18 rale-font font-bold text-uppercase">{{section.settings.section_title}}</h3>
+      </div>
+      <div class="tab-content tab-content-2">
+        <div class="wrap-item text-center" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1]]">
+          
+          {% for product in collections[col].products limit: products_limit %} 
+          	{% assign mod_for = forloop.index | modulo: 8 %}
+          
+            {% if mod_for == 1 %}
+              <div id="tab1" class="tab-pane fade in {% if forloop.first %}active{% endif %}" role="tabpanel">
+                <div class="row">
+                  <div class="col-md-3 col-sm-4 col-xs-6">
+                    {% include 'product-item-grid' %}
+                  </div>
+              {% if forloop.last %}    
+                </div>
+              </div>
+              {% endif %}
+
+            {% elsif mod_for == 0 %}
+                  <div class="col-md-3 col-sm-4 col-xs-6">
+                    {% include 'product-item-grid' %}
+                  </div>
+                </div>
+              </div>
+
+            {% else %}
+                  <div class="col-md-3 col-sm-4 col-xs-6">
+                    {% include 'product-item-grid' %}
+                  </div>
+              {% if forloop.last %}    
+                </div>
+              </div>
+              {% endif %}
+            {% endif %}
+  
+          {% else %}
+            {% include 'empty-product-item-v8' %}
+          {% endfor %}
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product v8",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Best sellers"
+    },
+    {
+      "type": "collection",
+      "id": "select_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Limit products",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product v8",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

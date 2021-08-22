@@ -1,0 +1,300 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-advs3">
+      <div class="wrap-advs3">
+        <div class="row">
+          <div class="col-md-7 col-sm-7">
+            <div class="item-advs3 text-right">
+              <div class="thumb-advs wow zoomIn">
+                <a href="{{section.settings.block_url1}}">
+                  {% if section.settings.block_img1 != blank %}
+                  <img src="{{section.settings.block_img1|img_url:'master'}}" alt="banner" />
+                  {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+              <div class="info-advs info-advs1 text-left wow fadeInRight">
+                {% if section.settings.block_heading1 != blank %}
+                <span class="title60 rale-font color text-center">{{section.settings.block_heading1}}</span>
+                {% endif %}
+                
+                <div class="text-box">
+                  {% if section.settings.block_sub_heading1 != blank %}
+                  <h3 class="title18 rale-font text-uppercase font-bold">{{section.settings.block_sub_heading1}}</h3>
+                  {% endif %}
+                  
+                  {% if section.settings.block_btn_name1 != blank %}
+                  <a href="{{section.settings.block_url1}}" class="shop-button bg-color hover-btn white">{{section.settings.block_btn_name1}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-sm-5">
+            <div class="item-advs3 item-02 text-right">
+              <div class="thumb-advs wow zoomIn">
+                <a href="{{section.settings.block_url2}}">
+                  {% if section.settings.block_img2 != blank %}
+                  <img src="{{section.settings.block_img2|img_url:'master'}}" alt="banner" />
+                  {% else %}
+                  {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+              <div class="info-advs info-advs2 text-left wow fadeInUp">
+                {% if section.settings.block_heading2 != blank %}
+                <span class="title60 rale-font color">{{section.settings.block_heading2}}</span>
+                {% endif %}
+                
+                <div class="text-box">
+                  {% if section.settings.block_sub_heading2 != blank %}
+                  <h3 class="title18 rale-font text-uppercase font-bold">{{section.settings.block_sub_heading2}}</h3>
+                  {% endif %}
+                  
+                  {% if section.settings.block_btn_name2 != blank %}
+                  <a href="{{section.settings.block_url2}}" class="shop-button bg-color hover-btn white">{{section.settings.block_btn_name2}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap-advs3">
+        <div class="row">
+          <div class="col-md-5 col-sm-5">
+            <div class="item-advs3 item-03">
+              <div class="thumb-advs wow zoomIn">
+                <a href="{{section.settings.block_url3}}">
+                  {% if section.settings.block_img3 != blank %}
+                  <img src="{{section.settings.block_img3|img_url:'master'}}" alt="banner" />
+                  {% else %}
+                  {{ 'collection-3' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+              <div class="info-advs info-advs3 wow fadeInRight">
+                {% if section.settings.block_heading3 != blank %}
+                <span class="title60 rale-font color">{{section.settings.block_heading3}}</span>
+                {% endif %}
+                
+                <div class="text-box">
+                  {% if section.settings.block_sub_heading3 != blank %}
+                  <h3 class="title18 rale-font text-uppercase font-bold">{{section.settings.block_sub_heading3}}</h3>
+                  {% endif %}
+                  
+                  {% if section.settings.block_btn_name3 != blank %}
+                  <a href="{{section.settings.block_url3}}" class="shop-button bg-color hover-btn white">{{section.settings.block_btn_name3}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 col-sm-7">
+            <div class="item-advs3 item-advs3-last">
+              <div class="thumb-advs wow zoomIn">
+                <a href="{{section.settings.block_url4}}">
+                  {% if section.settings.block_img4 != blank %}
+                  <img src="{{section.settings.block_img4|img_url:'master'}}" alt="banner" />
+                  {% else %}
+                  {{ 'collection-4' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+              <div class="info-advs text-right wow fadeInLeft">
+                {% if section.settings.block_heading4 != blank %}
+                <span class="title60 rale-font color">{{section.settings.block_heading4}}</span>
+                {% endif %}
+                
+                <div class="text-box">
+                  {% if section.settings.block_sub_heading4 != blank %}
+                  <h3 class="title18 rale-font text-uppercase font-bold">{{section.settings.block_sub_heading4}}</h3>
+                  {% endif %}
+                  
+                  {% if section.settings.block_btn_name4 != blank %}
+                  <a href="{{section.settings.block_url4}}" class="shop-button bg-color hover-btn white">{{section.settings.block_btn_name4}}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end banner-advs3 -->
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v5",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner 01"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img1",
+      "label": "Image 1",
+      "info": "520 x 693px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url1",
+      "label": "URL 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading1",
+      "label": "Heading 1",
+      "default": "01"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading1",
+      "label": "Sub heading 1",
+      "default": "You've got parties,<br> w'eve got options."
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name1",
+      "label": "Button name 1",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 02"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img2",
+      "label": "Image 2",
+      "info": "320 x 320px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url2",
+      "label": "URL 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading2",
+      "label": "Heading 2",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading2",
+      "label": "Sub heading 2",
+      "default": "fashion show body<br> Ladygaga Style"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name2",
+      "label": "Button name 2",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 03"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img3",
+      "label": "Image 3",
+      "info": "320 x 320px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url3",
+      "label": "URL 3",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading3",
+      "label": "Heading 3",
+      "default": "03"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading3",
+      "label": "Sub heading 3",
+      "default": "autumn-winter<br> collection"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name3",
+      "label": "Button name 3",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 04"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img4",
+      "label": "Image 4",
+      "info": "500 x 500px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url4",
+      "label": "URL 4",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading4",
+      "label": "Heading 4",
+      "default": "04"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading4",
+      "label": "Sub heading 4",
+      "default": "collection accessories<br> for women's"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name4",
+      "label": "Button name 4",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v5",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

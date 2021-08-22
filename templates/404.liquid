@@ -1,0 +1,14 @@
+<!-- /templates/404.liquid -->
+<div id="content">
+  <div class="content-page">
+    <div class="container">
+      <div class="content-404">
+        {% if settings.error_bg_img != blank %}
+        <img src="{{settings.error_bg_img|img_url:'master'}}" alt="" />
+        {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

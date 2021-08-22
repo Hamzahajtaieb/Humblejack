@@ -1,0 +1,125 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-service-box-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="{% if section.settings.enable_fullwidth %}{% else %}container{% endif %}">
+    <div class="box-service box-service2 {% if section.settings.enable_fullwidth %}box-service3{% endif %}">
+      <div class="row">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "block" %}
+        
+        {% assign mod = forloop.index | modulo:2 %}
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div class="item-service text-center {% if mod == 0 %}item-center{% endif %}" style="background: {{block.settings.bg_color}};">
+            <a href="{{block.settings.block_url}}" class="icon-service title48 color wobble-skew"><i class="{{block.settings.block_icon}}"></i></a>
+            <h3 class="title18 text-uppercase font-bold rale-font"><a href="{{block.settings.block_url}}" class="link-hover">{{block.settings.block_title}}</a></h3>
+            <p>{{block.settings.block_content}}</p>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Service box v2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_fullwidth",
+      "label": "Enable Fullwidth",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color",
+          "default": "#f7f7f7"
+        },
+        {
+          "type": "text",
+          "id": "block_icon",
+          "label": "Icon",
+          "default": "fas fa-shopping-basket",
+          "info": "[Get icon from here](https:\/\/fontawesome.com\/cheatsheet)"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": "FREE SHIPPING"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "On orders over $99."
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service box v2",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "block",
+          "settings": {
+            "bg_color": "#f7f7f7"
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+            "bg_color": "#fcfcfc"
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+            "bg_color": "#f7f7f7"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

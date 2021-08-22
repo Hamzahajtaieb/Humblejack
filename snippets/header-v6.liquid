@@ -1,0 +1,73 @@
+<header id="header">
+  <div class="header"> 
+    {% if settings.enable_hdv6_topbar %}
+    <div class="sub-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="new-event">
+              <h3 class="title12"><span class="icon-event color"><i class="{{settings.hdv6_topbar_text_icon}}"></i></span>{{settings.hdv6_topbar_text_content}}</h3>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="call-us call-us6 text-right">
+              <span class="text-uppercase title12"><i class="{{settings.hdv6_topbar_phone_icon}}"></i>{{settings.hdv6_topbar_phone_content}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="main-header main-header-6 bg-white">
+      <div class="menu-fixed">
+        <a href="#" class="btn-menu-fixed"><i class="fas fa-bars"></i></a>
+        <nav class="main-nav main-nav6 text-right">
+          {% include 'menu-v6' %}
+          <a href="#" class="toggle-mobile-menu"><span></span></a>
+        </nav>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-3">
+            <div class="logo logo6">
+              <a href="/" class="color title30 text-uppercase rale-font link-hover" style="display: block; width: {{settings.hdv6_logo_maxwidth}}px;">
+                {% if settings.hdv6_logo != blank %}
+                <img src="{{settings.hdv6_logo|img_url:'master'}}">
+                {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-6">
+            <div class="search-box6 pull-right">
+              <form class="search-form6 clearfix" action="/search">
+                <input type="hidden" name="type" value="product">
+                <input type="text" placeholder="Search..." name="q" value="{{ search.terms | escape }}"/>
+                <div class="submit6 bg-color text-center text-uppercase white">
+                  <input type="submit" value="{{settings.hdv6_topbar_search_title}}">
+                </div>	
+              </form>
+            </div>
+          </div>
+          <div class="col-md-1 col-sm-3">
+            <ul class="list-inline-block pull-right box-search-cart box-search-cart6">
+              <li>
+                <a href="/account" class="text-uppercase title12 link-hover"><i class="{{section.settings.header_account_icon}}"></i></a>
+              </li>
+              <li>
+                <div class="mini-cart-box aside-box style-mini-cart">
+                  <div class="mini-cart-link">
+                    <a class="link-hover text-uppercase title12 mini-cart-icon" href="/cart"><i class="{{section.settings.header_cart_icon}}"></i></a>
+                  </div>
+                  {% include 'mini-cart' %}
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

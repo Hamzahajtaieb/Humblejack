@@ -1,0 +1,105 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-service-box-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="customize-box bg-gray">
+    <div class="container">
+      <div class="wrap-customize">
+        <div class="row">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "block" %}
+          <div class="col-md-4 col-sm-4">
+            <div class="customize-item bg-white border-right">
+              <div class="info-box">
+                <h2 class="title18 rale-font font-bold text-uppercase"><a href="{{block.settings.block_url}}" class="link-hover">{{block.settings.block_title}}</a></h2>
+                <p class="desc silver">{{block.settings.block_content}}</p>
+              </div>
+              <a href="{{block.settings.block_url}}" class="hover-btn round bg-color white wobble-horizontal"><i class="fas fa-angle-right"></i></a>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Service box v1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": "Shop 1500+ Live Tees"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "Live dangerously. Browse every tee available."
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service box v1",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "block",
+          "settings": {
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+          }
+        },
+        {
+          "type": "block",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,141 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-product-v4" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+    <div class="container">
+      <div class="box-collection">
+        <div class="row">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "collection" %}
+          
+          {% assign mod = forloop.index | modulo: 2 %}
+          
+          {% assign products_limit = block.settings.products_limit %}
+          {% assign col = block.settings.select_collection %}
+          <div class="col-md-6">
+            <div class="item-collection">
+              <div class="banner-collection">
+                <div class="thumb-box line-scale">
+                  <a href="{{collections[col].url}}" class="advs-thumb-link">
+                    {% if block.settings.block_image != blank %}
+                        {{block.settings.block_image|img_url:'master' | img_tag: collections[col].title }}
+                    {% else %}
+                      {% if collections[col] != blank %}
+                        {{collections[col].image.src|img_url:'master' | img_tag: collections[col].title }}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    {% endif %}
+                  </a>
+                </div>
+                <div class="info-box">
+                  <h3 class="title18 text-uppercase font-bold rale-font">
+                    {% if collections[col] != blank %}
+                    {{collections[col].title}}
+                    {% else %}
+                    Example Collection
+                    {% endif %}
+                  </h3>
+                  <a href="{{collections[col].url}}" class="shop-button bg-color white hover-btn">{{block.settings.btn_name}}</a>
+                </div>
+              </div>
+              <div class="product-collection {% if mod == 0 %}product-collection-right{% else %}product-collection-left{% endif %}">
+                <div class="wrap-item" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1],[560,2],[1200,2]]">
+                  {% for product in collections[col].products limit: products_limit %}
+                  	{% include 'product-item-grid' %}
+                  {% else %}
+                    {% for i in (1..3) %}
+                    {% include 'empty-product-item-grid' %}
+                    {% endfor %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product v4",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "select_collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Limit products",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "btn_name",
+          "label": "Button name",
+          "default": "View all products"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product v4",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

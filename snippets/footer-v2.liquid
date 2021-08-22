@@ -1,0 +1,103 @@
+<footer id="footer">
+  <div class="footer">
+    <div class="main-footer main-footer4 bg-color main-footer6">
+      <div class="container">
+        {% if settings.enable_fv2_top %}
+        <div class="box-contact-footer box-contact-footer4">
+          <div class="row">
+            <div class="col-md-6 col-sm-6">
+              <div class="sign-up">
+                <h3 class="title14 font-bold text-uppercase">{{settings.fv2_newsletter_title}}</h3>
+                
+                {% if settings.newsletter_form_action != blank %}
+                {% assign form_action = settings.newsletter_form_action %}
+                {% else %}
+                {% assign form_action = '#' %}
+                {% endif %}
+                
+                <form class="email-form email-form4 clearfix" action="{{form_action}}" method="post">
+                  <input type="email" name="EMAIL" placeholder="{{settings.fv2_newsletter_placeholder}}">
+                  <div class="submit bg-color text-center">
+                    <input type="submit" value="">
+                  </div>	
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <div class="connect-box connect-box4 pull-right">
+                <h3 class="title14 font-bold text-uppercase">{{settings.fv2_social_title}}</h3>
+                <ul class="list-inline-block social-box">
+                  {{settings.fv2_social_content}}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if settings.enable_fv2_payment %}
+        <div class="logo-cart logo-cart4 text-center">
+          <ul class="list-inline-block">
+            {% if settings.fv2_payment_img != blank %}
+            <li><a href="{{settings.fv2_payment_url}}"><img src="{{settings.fv2_payment_img|img_url:'master'}}" alt="Payment" /></a></li>
+            {% else %}
+            {% for type in shop.enabled_payment_types %}
+            <li>{{ type | payment_type_svg_tag: class: 'engoc-icon-svg icon--full-color' }}</li> 
+            {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+        
+        {% if settings.enable_fv2_main %}
+        <div class="box-info-footer">
+          <div class="row">
+            {% for link in linklists[settings.fv2_main_menu].links %}
+            {% assign item = link.title | downcase %}
+            {% assign child_list_handle = link.title | handleize %}
+
+            {% if linklists[child_list_handle].links != blank %}
+            <div class="col-md-3 col-sm-3">
+              <div class="info-footer info-footer4">
+                <h3 class="title14 font-bold text-uppercase"><a href="{{ link.url }}">{{ link.title }}</a></h3>
+                <ul class="list-none">
+                  {% for childlink in linklists[child_list_handle].links %}
+                  <li><a href="{{ childlink.url }}" class="link-hover">{{ childlink.title | escape }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            {% else %}
+            <div class="col-md-3 col-sm-3">
+              <div class="info-footer info-footer4">
+                <h3 class="title14 font-bold text-uppercase"><a href="{{ link.url }}">{{ link.title }}</a></h3>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if settings.enable_fv2_bottom %}
+        <div class="box-design-by box-design-by4 text-center">
+          <ul class="list-inline-block">
+            {% for link in linklists[settings.fv2_bottom_menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {% endfor %}
+          </ul>
+          
+          {% if settings.fv2_bottom_copyright != blank %}
+          <h3 class="title14">{{settings.fv2_bottom_copyright}}</h3>
+          {% else %}
+          <h3 class="title14">Copyright &copy; {{ 'now' | date: "%Y" }} by <a href="http://shopilaunch.com" title="ShopiLaunch" target="_blank">ShopiLaunch</a>. All Rights Reserved.
+            <br> <small>{{ powered_by_link }}</small>
+          </h3>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

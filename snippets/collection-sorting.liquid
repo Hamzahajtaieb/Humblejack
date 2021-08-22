@@ -1,0 +1,79 @@
+<!-- /snippets/collection-sorting.liquid -->
+{% comment %}
+Toggle between collection.liquid and collection.list.liquid with the
+?view= parameter.
+{% endcomment %}
+
+<div class="title-grid title-grid-sidebar">
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12">
+      <h3 class="title24 rale-font font-bold text-uppercase text-left dark">Gridview</h3>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="sort-view text-right">
+        <div class="sort-bar">
+          <span>{{ 'collections.sorting.title' | t }}</span>
+          <select name="SortBy" id="SortBy" class="orderby">
+            <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+            <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+            <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+            <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+            <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+            <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+            <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+          </select>
+        </div>
+        <div class="per-page">
+          <span>{{ 'collections.showby.show' | t }}</span>
+          <input type="hidden" name="engoj_current_page_size" value="{{current_page_size}}"/>
+          <select name="showby" id="showby">
+            <option value="{{settings.nb_per_page}}" {% if current_page_size == settings.nb_per_page %} selected="selected" {% endif %}> {{settings.nb_per_page}} </option>
+            <option value="24"{% if current_page_size == 24 %} selected="selected" {% endif %}> 24 </option>
+            <option value="48"{% if current_page_size == 48 %} selected="selected" {% endif %}> 48 </option>
+          </select>
+        </div>
+        <div class="view-type pull-right clearfix">
+          <span>{{ 'collections.viewas.view' | t }}</span>
+          <ul class="list-inline-block">
+            <li class="border engoj-view-mode{% if template contains 'collection' %} {% unless template contains 'list' %}active{% endunless %} change-view--active{% endif %}" data-view="grid" data-layout="grid" data-remove="list"><a href="javascript:void(0)"><i class="fas fa-th-large"></i></a></li>
+            <li class="border engoj-view-mode{% if template contains 'list' %} active change-view--active{% endif %}" data-view="list" data-layout="list" data-remove="grid"><a href="javascript:void(0)"><i class="fas fa-bars"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*============================================================================
+    Inline JS because collection liquid object is only available
+    on collection pages and not external JS files
+  ==============================================================================*/
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+
+  $(function() {
+    $('#SortBy')
+    .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+         .bind('change', function() {
+      Shopify.queryParams.sort_by = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams);
+    }
+    );
+    $('#showby')
+    .val('{{ collection.limit | default: settings.nb_per_page }}')
+         .bind('change', function() {
+      Shopify.queryParams.view = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams);
+    }
+    );
+  });
+</script>

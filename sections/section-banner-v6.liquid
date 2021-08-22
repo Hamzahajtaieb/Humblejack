@@ -1,0 +1,124 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v6" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="banner-thumb5">
+    <a href="{{section.settings.block_url}}">
+      {% if section.settings.block_img != blank %}
+      <img src="{{section.settings.block_img|img_url:'master'}}" alt="banner" />
+      {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </a>
+    
+    {% if section.settings.block_heading != blank or section.settings.block_sub_heading != blank or section.settings.block_btn_name != blank or section.settings.block_content1 != blank or section.settings.block_content2 != blank or section.settings.block_content3 != blank or section.settings.block_content4 != blank %}
+    <div class="info-banner info-banner5 text-center">
+      <div class="wrap-info">	
+        {% if section.settings.block_heading != blank %}
+        <h2 class="title60 text-uppercase font-bold rale-font color">{{section.settings.block_heading}}</h2>
+        {% endif %}
+        
+        {% if section.settings.block_sub_heading != blank %}
+        <h3 class="title30 text-uppercase font-bold rale-font white">{{section.settings.block_sub_heading}}</h3>
+        {% endif %}
+        
+        {% if section.settings.block_content1 != blank or section.settings.block_content2 != blank or section.settings.block_content3 != blank or section.settings.block_content4 != blank %}
+        <h2 class="title150 poiret-font white"><span class="number">{{section.settings.block_content1}}</span><span class="number">{{section.settings.block_content2}}</span> <span class="title40 poiret-font white text-uppercase">{{section.settings.block_content3}} <br>{{section.settings.block_content4}}</span></h2>
+        {% endif %}
+        
+        {% if section.settings.block_btn_name != blank %}
+        <a href="{{section.settings.block_url}}" class="hover-btn shop-button bg-color white">{{section.settings.block_btn_name}}</a>
+        {% endif %}
+      </div>	
+    </div>
+    {% endif %}
+  </div> 
+</div>
+
+{% schema %}
+{
+  "name": "Banner v6",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "block_img",
+      "label": "Image",
+      "info": "1920 x 1080px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url",
+      "label": "URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading",
+      "label": "Heading",
+      "default": "SALE"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading",
+      "label": "Sub heading",
+      "default": "OFF THE DAY"
+    },
+    {
+      "type": "text",
+      "id": "block_content1",
+      "label": "Content sale 1",
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "block_content2",
+      "label": "Content sale 2",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "block_content3",
+      "label": "Content sale 3",
+      "default": "%"
+    },
+    {
+      "type": "text",
+      "id": "block_content4",
+      "label": "Content sale 4",
+      "default": "off"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name",
+      "label": "Button name",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v6",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

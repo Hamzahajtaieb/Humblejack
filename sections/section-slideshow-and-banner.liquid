@@ -1,0 +1,322 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-and-banner" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner8">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <div class="banner-slider banner-slider-8">
+            <div class="wrap-item" data-pagination="true" data-autoplay="true" data-transition="fade" data-navigation="false" data-itemscustom="[[0,1]]">
+              {% if section.blocks.size > 0 %}
+              {% for block in section.blocks %}
+              {% if block.type == "image" %}
+              <div class="item-slider">
+                <div class="banner-thumb">
+                  <a href="{{block.settings.block_btn_url}}">
+                    {% if block.settings.block_image != blank %}
+                    {{ block.settings.block_image | img_url:'master' | img_tag: block.settings.block_sub_heading, 'img-responsive' }}
+                    {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </a>
+                </div>
+                
+                {% if block.settings.block_heading != blank or block.settings.block_sub_heading != blank or block.settings.block_content != blank or block.settings.block_btn_name != blank %}
+                <div class="banner-info text-right animated" data-animated="{{block.settings.text_effect}}">
+                  <div class="container">
+                    <div class="wrap-banner-info wrap-banner-info8 {% if block.settings.text_alignment == "left" %}text-left{% elsif block.settings.text_alignment == "center" %}text-center{% elsif block.settings.text_alignment == "right" %}text-right{% endif %}">
+                      {% if block.settings.block_heading != blank %}
+                      <h3 class="title14 font-bold text-uppercase">{{block.settings.block_heading}}</h3>
+                      {% endif %}
+
+                      {% if block.settings.block_sub_heading != blank %}
+                      <h2 class="title30 text-uppercase font-bold">{{block.settings.block_sub_heading}}</h2>
+                      {% endif %}
+
+                      {% if block.settings.block_content != blank %}
+                      <h3 class="title14 text-uppercase">{{block.settings.block_content}}</h3>
+                      {% endif %}
+
+                      {% if block.settings.block_btn_name != blank %}
+                      <a href="{{block.settings.block_btn_url}}" class="hover-btn shop-button bg-color white push">{{block.settings.block_btn_name}}</a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                
+              </div>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="banner-advs8">
+            <div class="thumb-advs zoom-image">
+              <a href="{{section.settings.block_url1}}" class="advs-thumb-link">
+                {% if section.settings.block_img1 != blank %}
+                <img src="{{section.settings.block_img1|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="thumb-advs zoom-image">
+              <a href="{{section.settings.block_url2}}" class="advs-thumb-link">
+                {% if section.settings.block_img2 != blank %}
+                <img src="{{section.settings.block_img2|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow & Banner",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "info": "Scroll down and click Add content",
+      "content": "Slideshow"
+    },
+    {
+      "type": "header",
+      "content": "Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img1",
+      "label": "Image 1",
+      "info": "540 x 250px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url1",
+      "label": "URL 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img2",
+      "label": "Image 2",
+      "info": "540 x 250px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url2",
+      "label": "URL 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slideshow-Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "info": "600 x 530px recommended",
+          "label": "Image"
+        },
+        {
+           "type": "select",
+           "id": "text_alignment",
+           "options": [
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"},
+              { "value": "right", "label": "Right"}
+           ],
+           "label": "Text alignment"
+        },
+        {
+           "type": "select",
+           "id": "text_effect",
+           "options": [
+              { "value": "bounce", "label": "bounce", "group": "Attention Seekers"},
+              { "value": "flash", "label": "flash", "group": "Attention Seekers"},
+              { "value": "pulse", "label": "pulse", "group": "Attention Seekers"},
+              { "value": "rubberBand", "label": "rubberBand", "group": "Attention Seekers"},
+              { "value": "shake", "label": "shake", "group": "Attention Seekers"},
+              { "value": "swing", "label": "swing", "group": "Attention Seekers"},
+              { "value": "tada", "label": "tada", "group": "Attention Seekers"},
+              { "value": "wobble", "label": "wobble", "group": "Attention Seekers"},
+              { "value": "jello", "label": "jello", "group": "Attention Seekers"},
+
+              { "value": "bounceIn", "label": "bounceIn", "group": "Bouncing Entrances"},
+              { "value": "bounceInDown", "label": "bounceInDown", "group": "Bouncing Entrances"},
+              { "value": "bounceInLeft", "label": "bounceInLeft", "group": "Bouncing Entrances"},
+              { "value": "bounceInRight", "label": "bounceInRight", "group": "Bouncing Entrances"},
+              { "value": "bounceInUp", "label": "bounceInUp", "group": "Bouncing Entrances"},
+
+              { "value": "bounceOut", "label": "bounceOut", "group": "Bouncing Exits"},
+              { "value": "bounceOutDown", "label": "bounceOutDown", "group": "Bouncing Exits"},
+              { "value": "bounceOutLeft", "label": "bounceOutLeft", "group": "Bouncing Exits"},
+              { "value": "bounceOutRight", "label": "bounceOutRight", "group": "Bouncing Exits"},
+              { "value": "bounceOutUp", "label": "bounceOutUp", "group": "Bouncing Exits"},
+
+              { "value": "fadeIn", "label": "fadeIn", "group": "Fading Entrances"},
+              { "value": "fadeInDown", "label": "fadeInDown", "group": "Fading Entrances"},
+              { "value": "fadeInDownBig", "label": "fadeInDownBig", "group": "Fading Entrances"},
+              { "value": "fadeInLeft", "label": "fadeInLeft", "group": "Fading Entrances"},
+              { "value": "fadeInLeftBig", "label": "fadeInLeftBig", "group": "Fading Entrances"},
+              { "value": "fadeInRight", "label": "fadeInRight", "group": "Fading Entrances"},
+              { "value": "fadeInRightBig", "label": "fadeInRightBig", "group": "Fading Entrances"},
+              { "value": "fadeInUp", "label": "fadeInUp", "group": "Fading Entrances"},
+              { "value": "fadeInUpBig", "label": "fadeInUpBig", "group": "Fading Entrances"},
+
+
+              { "value": "fadeOut", "label": "fadeOut", "group": "Fading Exits"},
+              { "value": "fadeOutDown", "label": "fadeOutDown", "group": "Fading Exits"},
+              { "value": "fadeOutDownBig", "label": "fadeOutDownBig", "group": "Fading Exits"},
+              { "value": "fadeOutLeft", "label": "fadeOutLeft", "group": "Fading Exits"},
+              { "value": "fadeOutLeftBig", "label": "fadeOutLeftBig", "group": "Fading Exits"},
+              { "value": "fadeOutRight", "label": "fadeOutRight", "group": "Fading Exits"},
+              { "value": "fadeOutRightBig", "label": "fadeOutRightBig", "group": "Fading Exits"},
+              { "value": "fadeOutUp", "label": "fadeOutUp", "group": "Fading Exits"},
+              { "value": "fadeOutUpBig", "label": "fadeOutUpBig", "group": "Fading Exits"},
+
+
+              { "value": "flip", "label": "flip", "group": "Flippers"},
+              { "value": "flipInX", "label": "flipInX", "group": "Flippers"},
+              { "value": "flipInY", "label": "flipInY", "group": "Flippers"},
+              { "value": "flipOutX", "label": "flipOutX", "group": "Flippers"},
+              { "value": "flipOutY", "label": "flipOutY", "group": "Flippers"},
+
+              { "value": "lightSpeedIn", "label": "lightSpeedIn", "group": "Lightspeed"},
+              { "value": "lightSpeedOut", "label": "lightSpeedOut", "group": "Lightspeed"},
+
+              { "value": "rotateIn", "label": "rotateIn", "group": "Rotating Entrances"},
+              { "value": "rotateInDownLeft", "label": "rotateInDownLeft", "group": "Rotating Entrances"},
+              { "value": "rotateInDownRight", "label": "rotateInDownRight", "group": "Rotating Entrances"},
+              { "value": "rotateInUpLeft", "label": "rotateInUpLeft", "group": "Rotating Entrances"},
+              { "value": "rotateInUpRight", "label": "rotateInUpRight", "group": "Rotating Entrances"},
+
+              { "value": "rotateOut", "label": "rotateOut", "group": "Rotating Exits"},
+              { "value": "rotateOutDownLeft", "label": "rotateOutDownLeft", "group": "Rotating Exits"},
+              { "value": "rotateOutDownRight", "label": "rotateOutDownRight", "group": "Rotating Exits"},
+              { "value": "rotateOutUpLeft", "label": "rotateOutUpLeft", "group": "Rotating Exits"},
+              { "value": "rotateOutUpRight", "label": "rotateOutUpRight", "group": "Rotating Exits"},
+
+              { "value": "slideInUp", "label": "slideInUp", "group": "Sliding Entrances"},
+              { "value": "slideInDown", "label": "slideInDown", "group": "Sliding Entrances"},
+              { "value": "slideInLeft", "label": "slideInLeft", "group": "Sliding Entrances"},
+              { "value": "slideInRight", "label": "slideInRight", "group": "Sliding Entrances"},
+
+              { "value": "slideOutUp", "label": "slideOutUp", "group": "Sliding Exits"},
+              { "value": "slideOutDown", "label": "slideOutDown", "group": "Sliding Exits"},
+              { "value": "slideOutLeft", "label": "slideOutLeft", "group": "Sliding Exits"},
+              { "value": "slideOutRight", "label": "slideOutRight", "group": "Sliding Exits"},
+
+              { "value": "zoomIn", "label": "zoomIn", "group": "Zoom Entrances"},
+              { "value": "zoomInDown", "label": "zoomInDown", "group": "Zoom Entrances"},
+              { "value": "zoomInLeft", "label": "zoomInLeft", "group": "Zoom Entrances"},
+              { "value": "zoomInRight", "label": "zoomInRight", "group": "Zoom Entrances"},
+              { "value": "zoomInUp", "label": "zoomInUp", "group": "Zoom Entrances"},
+
+              { "value": "zoomOut", "label": "zoomOut", "group": "Zoom Exits"},
+              { "value": "zoomOutDown", "label": "zoomOutDown", "group": "Zoom Exits"},
+              { "value": "zoomOutLeft", "label": "zoomOutLeft", "group": "Zoom Exits"},
+              { "value": "zoomOutRight", "label": "zoomOutRight", "group": "Zoom Exits"},
+              { "value": "zoomOutUp", "label": "zoomOutUp", "group": "Zoom Exits"},
+
+              { "value": "hinge", "label": "hinge", "group": "Specials"},
+              { "value": "jackInTheBox", "label": "jackInTheBox", "group": "Specials"},
+              { "value": "rollIn", "label": "rollIn", "group": "Specials"},
+              { "value": "rollOut", "label": "rollOut", "group": "Specials"}
+           ],
+           "label": "Effect for content",
+           "default": "fadeInRight"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading",
+          "default": "cow jacket for girl"
+        },
+        {
+          "type": "text",
+          "id": "block_sub_heading",
+          "label": "Sub heading",
+          "default": "$299.00"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "fanbong fashion"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name",
+          "label": "Button name",
+          "default": "shop now"
+        },
+        {
+          "type": "url",
+          "id": "block_btn_url",
+          "label": "Button URL",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow & Banner",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

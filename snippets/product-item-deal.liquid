@@ -1,0 +1,91 @@
+{% assign product_label_new = false %}
+{% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+{% assign time = _time|plus:0 %}
+{% assign now = 'now' | date: '%s'|plus:0 %}
+
+{% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+{% assign value = _value|plus:0 %}
+
+{% if now < value %}
+{% assign product_label_new = true %}
+{% endif %}
+
+{% assign label_popular = false %}
+{% if product.tags contains "hot" %}
+{% assign label_popular = true %}
+{% endif %} 
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% comment %}
+Setup MetaFields Editor: https://apps.shopify.com/metafields-editor
+
+If you’ve added to a product a metafield with the following attributes to store extra description for your products.
+Namespace: engo_video
+Key: video_link
+Value: https://vimeo.com/56962340
+Value_type: string
+
+You can output the value of this metafield in product.liquid with this Liquid tag:
+product.metafields.Namespace.Key
+
+{{product.metafields.shopilaunch_date.date_time}}
+{% endcomment %}
+
+<div class="item-product table border">
+  <div class="product-thumb text-center">
+    <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+    <a href="javascript:void(0)" data-id="{{ product.handle }}" class="quickview-link engoj_btn_quickview"><i class="{{settings.pia_quickview}}"></i></a>
+  </div>
+  <div class="product-info">
+    <span class="title10 text-uppercase">{{ product.type }}</span>
+    <h3 class="title14 font-bold"><a href="{{ product.url | within: collection }}" class="link-hover">{{ product.title }}</a></h3>
+    <div class="product-rate">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+    <ul class="list-inline-block product-price">
+      <li>	
+        {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+        <ins class="font-bold color">{% if product.price_varies %}{{ 'products.general.from_text_html' | t: price: price }}{% else %}{{ price }}{% endif %}</ins>
+      </li>
+      
+      {% if settings.show_sale_label and on_sale %}
+      <li><span class="sale-number bg-color white font-bold">-{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}%</span></li>
+      {% endif %}
+    </ul>
+    
+    {% if product.metafields.shopilaunch_date.date_time %}
+    <div class="deal-clock time-countdown" data-date="{{product.metafields.shopilaunch_date.date_time}}" data-color="#57ce74" data-bg="rgba(0,0,0,0.5)" data-width="0.03" data-text='["DAY","HOUR","MIN","SEC"]'></div>
+    {% endif %}
+    
+    <div class="product-extra-link">
+        {% if sold_out %}
+        <a href="{{ product.url | within: collection }}" class="addcart-link pull-left"><span>{{settings.pia_sold_name}}</span></a>
+        {% else %}
+          {% if product.variants.size > 1 %}
+          	<a href="{{ product.url | within: collection }}" class="addcart-link pull-left"><span>{{settings.pia_selectoption_name}}</span></a>
+          {% else %}
+            <form method="post" action="/cart/add" class="add-to-cart">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <button type="submit" name="add" id="AddToCart{{ product.id }}" class="enj-add-to-cart-btn addcart-link pull-left">
+                <span>{{settings.pia_addcart_name}}</span>
+              </button>
+            </form>
+          {% endif %}
+        {% endif %}
+      
+      {% include 'add-wishlist' %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+{% if section.settings.enable_alltab %}
+  {% if section.settings.tabs_style == "horizontal" %}
+  	<div class="tabs-detail tabs-detail3 border-bottom">
+    <div class="title-tab-detail">
+      <ul class="list-inline-block">
+        {% if section.settings.enable_description_tab %}
+        <li class="active"><a href="#tab1" data-toggle="tab" class="link-hover text-uppercase font-bold">{{section.settings.destab_title}}</a></li>
+        {% endif %}
+        {% if section.settings.enable_review_tab %}
+        <li><a href="#tab2" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.reviewtab_title}}</a></li>
+        {% endif %}
+        {% if section.settings.enable_custom_tab1 %}
+        <li><a href="#tab3" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.customtab_title1}}</a></li>
+        {% endif %}
+        {% if section.settings.enable_custom_tab2 %}
+        <li><a href="#tab4" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.customtab_title2}}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="tab-content border-top border-bottom">
+      {% if section.settings.enable_description_tab %}
+      <div id="tab1" class="tab-pane active">
+        <div class="detail-description">
+          {{product.description}}
+        </div>
+      </div>
+      {% endif %}
+      {% if section.settings.enable_review_tab %}
+      <div id="tab2" class="tab-pane">
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+      </div>
+      {% endif %}
+      {% if section.settings.enable_custom_tab1 %}
+      <div id="tab3" class="tab-pane">
+        {% if section.settings.custom_tab_option1 == "ct_ops_image1" %}
+
+        {% if section.settings.ct_option_11 != blank %}
+        <img src="{{ section.settings.ct_option_11 | img_url: "master" }}"/>
+        {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+
+        {% elsif section.settings.custom_tab_option1 == "ct_ops_html1" %}
+        {{ section.settings.ct_option_21 }}
+
+        {% elsif section.settings.custom_tab_option1 == "ct_ops_page1" %}
+        {% assign page_handle = section.settings.ct_option_31 %}
+        {{ pages[page_handle].content }}
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if section.settings.enable_custom_tab2 %}
+      <div id="tab4" class="tab-pane">
+        {% if section.settings.custom_tab_option2 == "ct_ops_image2" %}
+
+        {% if section.settings.ct_option_12 != blank %}
+        <img src="{{ section.settings.ct_option_12 | img_url: "master" }}"/>
+        {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+
+        {% elsif section.settings.custom_tab_option2 == "ct_ops_html2" %}
+        {{ section.settings.ct_option_22 }}
+
+        {% elsif section.settings.custom_tab_option2 == "ct_ops_page2" %}
+        {% assign page_handle = section.settings.ct_option_32 %}
+        {{ pages[page_handle].content }}
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% elsif section.settings.tabs_style == "verticle" %}
+  	<div class="tabs-detail border-bottom">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="title-tab-detail">
+          <ul class="list-none">
+            {% if section.settings.enable_description_tab %}
+            <li class="active"><a href="#tab1" data-toggle="tab" class="link-hover text-uppercase font-bold">{{section.settings.destab_title}}</a></li>
+            {% endif %}
+            {% if section.settings.enable_review_tab %}
+            <li><a href="#tab2" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.reviewtab_title}}</a></li>
+            {% endif %}
+            {% if section.settings.enable_custom_tab1 %}
+            <li><a href="#tab3" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.customtab_title1}}</a></li>
+            {% endif %}
+            {% if section.settings.enable_custom_tab2 %}
+            <li><a href="#tab4" class="text-uppercase font-bold link-hover" data-toggle="tab">{{section.settings.customtab_title2}}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="tab-content border">
+          {% if section.settings.enable_description_tab %}
+          <div id="tab1" class="tab-pane active">
+            <div class="detail-description">
+              {{product.description}}
+            </div>
+          </div>
+          {% endif %}
+          
+          {% if section.settings.enable_review_tab %}
+          <div id="tab2" class="tab-pane">
+            <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+          </div>
+          {% endif %}
+          
+          {% if section.settings.enable_custom_tab1 %}
+          <div id="tab3" class="tab-pane">
+            {% if section.settings.custom_tab_option1 == "ct_ops_image1" %}
+              {% if section.settings.ct_option_11 != blank %}
+              <img src="{{ section.settings.ct_option_11 | img_url: "master" }}"/>
+              {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            {% elsif section.settings.custom_tab_option1 == "ct_ops_html1" %}
+            	{{ section.settings.ct_option_21 }}
+            {% elsif section.settings.custom_tab_option1 == "ct_ops_page1" %}
+              {% assign page_handle = section.settings.ct_option_31 %}
+              {{ pages[page_handle].content }}
+            {% endif %}
+          </div>
+          {% endif %}
+          
+          {% if section.settings.enable_custom_tab2 %}
+          <div id="tab4" class="tab-pane">
+            {% if section.settings.custom_tab_option2 == "ct_ops_image2" %}
+              {% if section.settings.ct_option_12 != blank %}
+              <img src="{{ section.settings.ct_option_12 | img_url: "master" }}"/>
+              {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            {% elsif section.settings.custom_tab_option2 == "ct_ops_html2" %}
+            	{{ section.settings.ct_option_22 }}
+            {% elsif section.settings.custom_tab_option2 == "ct_ops_page2" %}
+              {% assign page_handle = section.settings.ct_option_32 %}
+              {{ pages[page_handle].content }}
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}

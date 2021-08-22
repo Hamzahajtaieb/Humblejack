@@ -1,0 +1,77 @@
+<header id="header">
+  <div class="header">
+    {% if settings.enable_hdv1_promotion %}
+    <div class="top-header text-center white hidden-xs bg-2color-header-top" style="background: linear-gradient(to right, {{settings.hdv1_promo_bg_color1}}. 1%, {{settings.hdv1_promo_bg_color1}}. 100%);">
+      <div class="container">
+        <h3 class="title14 text-uppercase font-bold rale-font">{{settings.hdv1_promo_content}}</h3>
+        <a href="{{settings.hdv1_promo_btn_url}}" class="text-uppercase white link-hover border-left">{{settings.hdv1_promo_btn_name}} <i class="fas fa-angle-right"></i></a>
+        <a href="#" class="btn-close pull-right"></a>
+      </div>
+    </div>
+    {% endif %}
+    {% if settings.enable_hdv1_topbar %}
+    <div class="sub-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <div class="call-us">
+              <span class="text-uppercase title12"><i class="{{settings.hdv1_topbar_phone_icon}}"></i>{{settings.hdv1_topbar_phone_content}}</span>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <ul class="list-inline-block pull-right box-search-cart">
+              <li>
+                <div class="search-box">
+                  <a href="/search" class="text-uppercase title12 link-hover"><i class="{{section.settings.header_search_icon}}"></i>{{settings.hdv1_topbar_search_title}}</a>
+                  <form class="search-form clearfix" action="/search">
+                    <input type="hidden" name="type" value="product">
+                    <input type="text" placeholder="Search" name="q" value="{{ search.terms | escape }}"/>
+                    <div class="submit bg-color text-center">
+                      <input type="submit" value="">
+                    </div>	
+                  </form>
+                </div>
+              </li>
+              <li>
+                <a href="/account" class="text-uppercase title12 link-hover"><i class="{{section.settings.header_account_icon}}"></i> {{settings.hdv1_topbar_account_title}}</a>
+              </li>
+              <li>
+                <div class="mini-cart-box aside-box style-mini-cart">
+                  <div class="mini-cart-link">
+                    <a class="link-hover text-uppercase title12 mini-cart-icon" href="#"><i class="{{section.settings.header_cart_icon}}"></i>{{settings.hdv1_topbar_cart_title}}</a>
+                  </div>
+                  {% include 'mini-cart' %}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+    <div class="main-header bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-3">
+            <div class="logo">
+              <a href="/" class="color title30 text-uppercase rale-font link-hover" style="display: block; width: {{settings.hdv1_logo_maxwidth}}px;">
+                {% if settings.hdv1_logo != blank %}
+                <img src="{{settings.hdv1_logo|img_url:'master'}}">
+                {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-9 col-sm-9">
+            <nav class="main-nav pull-right">
+              {% include 'menu' %}
+              <a href="#" class="toggle-mobile-menu"><span></span></a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

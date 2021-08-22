@@ -1,0 +1,144 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-testimonial-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="box-customers-2 {% if section.settings.enable_padding %}box-customers-8{% endif %} text-center" style="background: {{section.settings.bg_color}};">
+    <div class="container">
+      <h3 class="title30 text-uppercase rale-font font-bold">{{section.settings.section_heading}} <span class="title60  icon-quote"><img src="{{ 'icon-quotes.png' | asset_url }}" alt="icon quotes" /></span></h3>
+      <div class="wrap-item" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1]]">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "testimonial" %}
+        <div class="item-customer item-customer-2">
+          <p class="desc text-italic title18" style="background: {{section.settings.bg_color}};">{{block.settings.block_content}}</p>
+          <div class="box-avatar box-avatar-2 text-center">
+            <div class="thumb-box">
+              <a href="{{block.settings.block_url}}" class="advs-thumb-link">
+                {% if block.settings.block_img != blank %}
+                {{ block.settings.block_img | img_url:'master' | img_tag: block.settings.block_name, 'img-responsive' }}
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-box">
+              <h3 class="title18 font-bold"><a href="{{block.settings.block_url}}" class="link-hover">{{block.settings.block_name}}</a></h3>
+              <p class="desc silver">{{block.settings.block_info}}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .box-customers-8 .item-customer .text-italic:after {
+    border-top: 20px solid transparent;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonial v2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_padding",
+      "label": "Enable padding?",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_img",
+          "label": "Image",
+          "info": "100 x 100px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "textarea",
+          "id": "block_content",
+          "label": "Content",
+          "default": "I have a thing for sunglasses, like I do indeed collect these and I have a real big range of it at home. Luckily, stores like this one let me indulge in this hobby furthermore!"
+        },
+        {
+          "type": "text",
+          "id": "block_name",
+          "label": "Name",
+          "default": "Mr.Jay"
+        },
+        {
+          "type": "text",
+          "id": "block_info",
+          "label": "Info",
+          "default": "Designer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial v2",
+      "category": "Content",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

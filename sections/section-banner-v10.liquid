@@ -1,0 +1,133 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v10" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-advs7-2 zoom-image">
+      <div class="thumb-advs">
+        {% if section.settings.block_img_left != blank %}
+        <span class="img-before">
+          <img src="{{section.settings.block_img_left|img_url:'master'}}" alt="banner" />
+        </span>
+        {% endif %}
+        
+        <a href="{{section.settings.block_url}}" class="advs-thumb-link">
+          {% if section.settings.block_img != blank %}
+          <img src="{{section.settings.block_img|img_url:'master'}}" alt="banner" />
+          {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </a>
+        
+        {% if section.settings.block_img_right != blank %}
+        <span class="img-after">
+          <img src="{{section.settings.block_img_right|img_url:'master'}}" alt="banner" />
+        </span>
+        {% endif %}
+      </div>
+
+      {% if section.settings.block_heading != blank or section.settings.block_sub_heading != blank or section.settings.block_content != blank or section.settings.block_btn_name != blank %}
+      <div class="info-advs text-center">
+        <div class="title-box">
+          {% if section.settings.block_heading != blank %}
+          <h3 class="title18 text-uppercase">{{section.settings.block_heading}}</h3>
+          {% endif %}
+          
+          {% if section.settings.block_sub_heading != blank %}
+          <h2 class="title48 text-uppercase rale-font"><span>{{section.settings.block_sub_heading}}</span></h2>
+          {% endif %}
+          
+          {% if section.settings.block_content != blank %}
+          <h3 class="title24 text-uppercase font-bold">{{section.settings.block_content}}</h3>
+          {% endif %}
+        </div>
+        {% if section.settings.block_btn_name != blank %}
+        <a href="{{section.settings.block_url}}" class="hover-btn shop-button bg-color white">{{section.settings.block_btn_name}}</a>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div> 
+</div>
+
+{% schema %}
+{
+  "name": "Banner v10",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "block_img",
+      "label": "Image",
+      "info": "1169 x 620px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img_left",
+      "label": "Top left image",
+      "info": "134 x 312px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img_right",
+      "label": "Top right image",
+      "info": "135 x 290px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url",
+      "label": "URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading",
+      "label": "Heading",
+      "default": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading",
+      "label": "Sub heading",
+      "default": "sale 60% off"
+    },
+    {
+      "type": "text",
+      "id": "block_content",
+      "label": "Content",
+      "default": "accessories"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name",
+      "label": "Button name",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v10",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

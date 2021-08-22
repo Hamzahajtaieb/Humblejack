@@ -1,0 +1,132 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-advs-2">
+      <div class="row">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "banner" %}
+        <div class="col-md-4 col-sm-4">
+          <div class="item-advs item-advs-2">
+            <div class="thumb-advs line-scale">
+              <a href="{{block.settings.block_url}}" class="advs-thumb-link">
+                {% if block.settings.block_img != blank %}
+                {{ block.settings.block_img | img_url:'master' | img_tag: block.settings.block_sub_heading, 'img-responsive' }}
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-advs text-right">
+              {% if block.settings.block_heading != blank %}
+              <h3 class="title18 text-uppercase font-bold rale-font">{{block.settings.block_heading}}</h3>
+              {% endif %}
+
+              {% if block.settings.block_content != blank %}
+              <h3 class="title14 text-uppercase">{{block.settings.block_content}}</h3>
+              {% endif %}
+
+              {% if block.settings.block_btn_name != blank %}
+              <a href="{{block.settings.block_url}}" class="color text-uppercase font-bold border-top">{{block.settings.block_btn_name}}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div> 
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v3",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_img",
+          "label": "Image",
+          "info": "380 x 230px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading",
+          "default": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "Clothing"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name",
+          "label": "Button name",
+          "default": "More"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v3",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

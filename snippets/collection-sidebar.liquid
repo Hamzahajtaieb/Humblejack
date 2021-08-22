@@ -1,0 +1,9 @@
+<div class="sidebar sidebar-left engoj-collection-sidebar engoc_sw_filter_tag">
+  {% for i in (1..4) %}
+  {% capture collection_widget %}collection_widget_{{i}}{% endcapture %}
+  {% if section.settings[collection_widget] != blank %}
+  {% include section.settings[collection_widget] %}
+  {% endif %}
+  {% endfor %}
+</div>
+<!-- #secondary -->

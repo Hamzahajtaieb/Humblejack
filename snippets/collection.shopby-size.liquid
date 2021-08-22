@@ -1,0 +1,17 @@
+<div class="widget widget-filter-attr border widget_product_categories filter-tag">
+  <h2 class="widget-title title14 text-uppercase font-bold">{{section.settings.shop_by_size_title}}</h2>
+  <div class="widget-content">
+    <ul class="list-none filter-size">
+      {% assign tags = section.settings.shop_by_size_list_tags | split: ',' %}
+
+      {% for t in tags %}
+      {% assign tag = t | strip %}
+      {% assign tag_value = tag | handleize %}
+      <li>
+        <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+        <a class="{% if current_tags contains tag %}active{% endif %}" href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

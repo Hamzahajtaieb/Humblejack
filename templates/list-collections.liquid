@@ -1,0 +1,38 @@
+<!-- /templates/list-collections.liquid -->
+<div class="container">
+  <h1 class="title30 text-uppercase font-bold dark margin-bottom-30 mt-30">{{'collections.general.list_of_collection'|t}}</h1>
+  <div class="list-category row">
+    {% for collection in collections %}
+
+    {% if collection.empty? %}
+    {% comment %}add default state for collection block in theme editor{% endcomment %}
+    {% assign collection_image_url = '' %}
+    {% else %}
+    {% if collection.image %}
+    {% capture collection_image_url %}{{ collection | img_url: 'master' }}{% endcapture %}
+    {% elsif collection.products.first %}
+    {% capture collection_image_url %}{{ collection.products.first | img_url: 'master' }}{% endcapture %}
+    {% endif %}
+    {% endif %}
+    
+    <div class="col-sm-4 margin-bottom-30">
+      <div class="text-center">
+        <a href="{{ collection.url }}">
+          <img src="{{ collection_image_url }}" alt="{{ collection.title }}" title="{{ collection.title }}">
+        </a>
+      </div>
+      <div class="text-center mt-30">
+        <h3 class="title18 dark dosis-font text-uppercase font-bold margin-bottom-15 mt-15">
+          {{ collection.title }}
+        </h3>
+        <div class="margin-bottom-20"> {{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'Item', 'Items' }} total </div>
+        
+        <a href="{% if collection.empty? %}#{% else %}{{ collection.url }}{% endif %}" class="shop-button bg-dark">
+          {{'list_collection.view_more'|t}}
+        </a>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>

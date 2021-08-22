@@ -1,0 +1,251 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v9" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+    <div class="banner-advs7">
+      <div class="row">
+        
+        <div class="col-md-7 col-sm-7">
+          <div class="item-banner-advs">
+            <div class="thumb-advs thumb-advs-left zoom-image">
+              <a href="{{section.settings.block_url1}}" class="advs-thumb-link">
+                {% if section.settings.block_img1 != blank %}
+                <img src="{{section.settings.block_img1|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-advs info-advs-big info-advs9 text-center">
+              {% if section.settings.block_heading1 != blank %}
+              <span class="text-uppercase rale-font font-bold title30 dark">{{section.settings.block_heading1}}</span>
+              {% endif %}
+              
+              {% if section.settings.block_content1 != blank or section.settings.block_content2 != blank or section.settings.block_content3 != blank or section.settings.block_content4 != blank or section.settings.block_content5 != blank %}
+              <h2 class="title150 poiret-font color"><span class="text-uppercase rale-font font-bold title30">{{section.settings.block_content1}}</span><span class="number">{{section.settings.block_content2}}</span><span class="number">{{section.settings.block_content3}}</span> <span class="title40 poiret-font color text-uppercase">{{section.settings.block_content4}}<br> {{section.settings.block_content5}}</span></h2>
+              {% endif %}
+              
+              {% if section.settings.block_btn_name1 != blank %}
+              <a href="{{section.settings.block_url1}}" class="hover-btn shop-button bg-color white">{{section.settings.block_btn_name1}}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-5 col-sm-5">
+          <div class="item-banner-advs">
+            <div class="thumb-advs thumb-advs-right zoom-image">
+              <a href="{{section.settings.block_url2}}" class="advs-thumb-link">
+                {% if section.settings.block_img2 != blank %}
+                <img src="{{section.settings.block_img2|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-advs info-advs-top info-advs-small">
+              {% if section.settings.block_heading2 != blank %}
+              <span class="text-uppercase font-bold title14 dark">{{section.settings.block_heading2}}</span>
+              {% endif %}
+              
+              {% if section.settings.block_sub_heading2 != blank %}
+              <h2 class="title30 text-uppercase font-bold dark">{{section.settings.block_sub_heading2}}</h2>
+              {% endif %}
+              
+              {% if section.settings.block_des2 != blank %}
+              <h3 class="text-uppercase title14 dark">{{section.settings.block_des2}}</h3>
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="item-banner-advs">
+            <div class="thumb-advs thumb-advs-right zoom-image">
+              <a href="{{section.settings.block_url3}}" class="advs-thumb-link">
+                {% if section.settings.block_img3 != blank %}
+                <img src="{{section.settings.block_img3|img_url:'master'}}" alt="banner" />
+                {% else %}
+                {{ 'collection-3' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-advs info-advs-bottom info-advs-small text-center">
+              {% if section.settings.block_heading3 != blank %}
+              <span class="text-uppercase font-bold title14 dark">{{section.settings.block_heading3}}</span>
+              {% endif %}
+              
+              {% if section.settings.block_sub_heading3 != blank %}
+              <h2 class="title30 text-uppercase font-bold dark">{{section.settings.block_sub_heading3}}</h2>
+              {% endif %}
+              
+              {% if section.settings.block_des3 != blank %}
+              <h3 class="text-uppercase title14 dark">{{section.settings.block_des3}}</h3>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v9",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner 01"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img1",
+      "label": "Image 1",
+      "info": "700 x 980px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url1",
+      "label": "URL 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading1",
+      "label": "Heading 1",
+      "default": "SALE OF THE DAY"
+    },
+    {
+      "type": "text",
+      "id": "block_content1",
+      "label": "Content deal 1",
+      "default": "up to"
+    },
+    {
+      "type": "text",
+      "id": "block_content2",
+      "label": "Content deal 2",
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "block_content3",
+      "label": "Content deal 3",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "block_content4",
+      "label": "Content deal 4",
+      "default": "%"
+    },
+    {
+      "type": "text",
+      "id": "block_content5",
+      "label": "Content deal 5",
+      "default": "off"
+    },
+    {
+      "type": "text",
+      "id": "block_btn_name1",
+      "label": "Button name 1",
+      "default": "shop now"
+    },
+    {
+      "type": "header",
+      "content": "Banner 02"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img2",
+      "label": "Image 2",
+      "info": "420 x 370px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url2",
+      "label": "URL 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading2",
+      "label": "Heading 2",
+      "default": "UP TO"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading2",
+      "label": "Sub heading 2",
+      "default": "40% OFF"
+    },
+    {
+      "type": "text",
+      "id": "block_des2",
+      "label": "Description 2",
+      "default": "GLASSES COLLECTION"
+    },
+    {
+      "type": "header",
+      "content": "Banner 03"
+    },
+    {
+      "type": "image_picker",
+      "id": "block_img3",
+      "label": "Image 3",
+      "info": "420 x 560px recommended"
+    },
+    {
+      "type": "url",
+      "id": "block_url3",
+      "label": "URL 3",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "block_heading3",
+      "label": "Heading 3",
+      "default": "OVERSIZE COTTON BLOUSE"
+    },
+    {
+      "type": "text",
+      "id": "block_sub_heading3",
+      "label": "Sub heading 3",
+      "default": "$299.00"
+    },
+    {
+      "type": "text",
+      "id": "block_des3",
+      "label": "Description 3",
+      "default": "FANBONG FASHION"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v9",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

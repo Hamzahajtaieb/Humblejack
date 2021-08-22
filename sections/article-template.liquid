@@ -1,0 +1,394 @@
+<!-- /sections/article-template.liquid -->
+<section id="content">
+  <div class="content-page"> 
+    <div class="container">
+      
+      <div class="box-blog-post">
+        <div class="row">
+          <div class="{% if section.settings.blog_layout == "blog_layo_none" %}col-md-12 col-sm-12{% elsif section.settings.blog_layout == "blog_layo_right" %}col-md-9 col-sm-8{% elsif section.settings.blog_layout == "blog_layo_left" %}col-md-9 col-md-push-3 col-sm-8 col-sm-push-4{% endif %} col-xs-12">
+            <div class="single-post">
+              <div class="post-thumb zoom-rotate">
+                <a href="{{ article.url }}" class="advs-thumb-link"><img src="{{ article.image.src | img_url: 'master' }}" alt="{{ article.title }}" /></a>
+              </div>
+              <div class="post-name-blog">
+                <h2 class="title30 font-bold dark">{{ article.title }}</h2>
+              </div>
+              <div class="post-blog-by">
+                <ul class="list-inline-block">
+                  {% if section.settings.show_author %}
+                  <li class="silver"><i class="fas fa-user"></i> {{'blogs.article.poster_by'|t}}: <a href="{{ article.url }}" class="dark link-hover">{{ article.author }}</a></li>
+                  {% endif %}
+                  {% if section.settings.show_comment %}
+                  <li class="silver"><i class="fas fa-comment"></i> {{'blogs.article.comment'|t}}: <a href="{{ article.url }}/#comments" class="dark link-hover">{{ article.comments_count }}</a></li>
+                  {% endif %}
+                  {% if section.settings.show_cate %}
+                  <li class="silver "><i class="fas fa-folder"></i> {{'blogs.article.cate'|t}}: <a href="{{blog.url}}" class="dark link-hover">{{blog.title}}</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+              <div class="post-tag">
+                <ul class="list-inline-block">
+                  <li class="silver"><i class="fas fa-tag"></i>{{'blogs.article.tags'|t}}:</li>
+                  {% for tag in article.tags %}
+                  <li><a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="silver link-hover title12">{{ tag }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              
+              <div class="engoc-article-content">
+              {{article.content}}
+              </div>
+              
+              {% if section.settings.show_author_bio %}
+              <div class="box-author table">
+                {% if section.settings.author_bio_image != blank %}
+                <div class="ava-author">
+                  <a href="{{article.url}}"><img src="{{section.settings.author_bio_image|img_url:'master'}}" alt="{{article.author}}" /></a>
+                </div>
+                {% endif %}
+                <div class="info-author">
+                  <span class="silver">{{section.settings.author_bio_title}}</span>
+                  <div class="info-social clearfix">
+                    <h3 class="title14 font-bold text-uppercase"><a href="{{article.url}}" class="link-hover">{{article.author}}</a></h3>
+                    <ul class="list-inline-block social-box">
+                      {{section.settings.author_bio_social}}
+                    </ul>
+                  </div>
+                  <p class="desc">{{section.settings.author_bio_des}}</p>
+                </div>
+              </div>
+              {% endif %}
+              
+              {% if section.settings.show_prev_next %}
+              <ul class="list-inline-block post-btn clearfix">
+                <li><a href="{{blog.previous_article}}" class="link-hover"><i class="fas fa-chevron-left"></i> {{section.settings.prev_text}}</a></li>
+                <li class="text-right"><a href="{{blog.next_article}}" class="link-hover">{{section.settings.prev_text}} <i class="fas fa-chevron-right"></i></a></li>
+              </ul>
+              {% endif %}
+              
+              {% if section.settings.show_related_post %}
+              {%- assign related_posts_limit = section.settings.related_post_blogs_limit -%}
+              {%- assign related_blog_selected = section.settings.related_post_select_blog -%}
+              <div class="post-author">
+                <div class="title clearfix border-bottom">
+                  <h3 class="title18 text-uppercase font-bold pull-left">{{section.settings.related_post_title}}</h3>
+                </div>
+                <div class="content-box">
+                  <div class="row">
+                    {% for article in blogs[related_blog_selected].articles limit: related_posts_limit %}
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                      <div class="post-item">
+                        <div class="post-thumb zoom-rotate overlay-image">
+                          <a href="{{ article.url }}" class="advs-thumb-link"><img src="{{ article.image.src | img_url: 'master' }}" alt="{{ article.title }}" /></a>
+                        </div>
+                        <div class="post-info text-left">
+                          <h3 class="title18 post-name font-bold"><a href="{{ article.url }}" class="link-hover">{{ article.title }}</a></h3>
+                          <ul class="list-inline-block post-date">
+                            <li><span class="font-bold">{{ article.published_at | date: "%b %d,%Y" }}</span></li>
+                            <li><a href="{{ article.url }}/#comments" class="font-bold"><i class="far fa-comment"></i>{{ article.comments_count }}</a></li>
+                          </ul>
+                          <p class="desc">{{ article.content | strip_html | truncate: 96 }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              
+              {% if blog.comments_enabled? %}
+              {% include 'comment-article' %}
+              {% endif %}
+            </div>
+          </div>
+          {% unless section.settings.blog_layout == "blog_layo_none" %}
+          <div class="{% if section.settings.blog_layout == "blog_layo_right" %}col-md-3 col-sm-4{% elsif section.settings.blog_layout == "blog_layo_left" %}col-md-3 col-md-pull-9 col-sm-4 col-sm-pull-8{% endif %} col-xs-12">
+            {% include 'article-sidebar' %}
+          </div>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Article page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "blog_layout",
+      "options": [
+        {
+          "value": "blog_layo_left",
+          "label": "Sidebar Left"
+        },
+        {
+          "value": "blog_layo_right",
+          "label": "Sidebar Right"
+        },
+        {
+          "value": "blog_layo_none",
+          "label": "No Sidebar"
+        }
+      ],
+      "label": "Select Layout",
+      "default": "blog_layo_left"
+    },
+    {
+      "type": "header",
+      "content": "Config"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comment",
+      "label": "Show comment?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_datetime",
+      "label": "Show date?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cate",
+      "label": "Show category?",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag",
+      "label": "Show tags?",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Author bio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author_bio",
+      "label": "Show author bio?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "author_bio_title",
+      "label": "Author Title",
+      "default": "Written By"
+    },
+    {
+      "type": "image_picker",
+      "id": "author_bio_image",
+      "label": "Author image"
+    },
+    {
+      "type": "url",
+      "id": "author_bio_url",
+      "label": "Author URL"
+    },
+    {
+      "type": "textarea",
+      "id": "author_bio_des",
+      "label": "Author Description",
+      "default": "Hey there. My name is Penci. I was born with the love for traveling. I also love taking photos with"
+    },
+    {
+      "type": "textarea",
+      "id": "author_bio_social",
+      "label": "Author Social"
+    },
+    {
+      "type": "header",
+      "content": "Prev/Next post"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_prev_next",
+      "label": "Show prev/next post?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prev_text",
+      "label": "Prev text",
+      "default": "Prev Post"
+    },
+    {
+      "type": "text",
+      "id": "next_text",
+      "label": "Next text",
+      "default": "Next Post"
+    },
+    {
+      "type": "header",
+      "content": "Related post"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_post",
+      "label": "Show related post?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_post_title",
+      "label": "Title Widget",
+      "default": "YOU MIGHT ALSO LIKE"
+    },
+    {
+      "type": "blog",
+      "id": "related_post_select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "related_post_blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Config"
+    },
+    {
+      "type": "header",
+      "content": "Widget Related Post"
+    },
+    {
+      "type": "text",
+      "id": "widget_related_title",
+      "label": "Title Widget",
+      "default": "RECENT POSTS"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_related_post",
+      "label": "Enable?",
+      "default": true
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Widget Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_banner_product",
+      "label": "Enable?",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_product_img",
+      "label": "Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_product_url",
+      "label": "URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_tag",
+      "label": "Enable?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_by_tag_title",
+      "label": "Widget Title",
+      "default": "Tags"
+    },
+    {
+      "type": "header",
+      "content": "Widget Hot Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_best_product",
+      "label": "Enable?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "best_product_title",
+      "label": "Title",
+      "default": "TOP RATED PRODUCTS"
+    },
+    {
+      "type": "collection",
+      "id": "best_product_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "best_product_limit",
+      "label": "Limit products",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Widget Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_cate",
+      "label": "Enable?",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_cate_title",
+      "label": "Title Widget",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "widget_cate_menu",
+      "label": "Menu for Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_related",
+      "label": "Enable?",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

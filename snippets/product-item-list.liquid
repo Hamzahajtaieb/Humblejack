@@ -1,0 +1,60 @@
+{% assign product_label_new = false %}
+{% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+{% assign time = _time|plus:0 %}
+{% assign now = 'now' | date: '%s'|plus:0 %}
+
+{% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+{% assign value = _value|plus:0 %}
+
+{% if now < value %}
+{% assign product_label_new = true %}
+{% endif %}
+
+{% assign label_popular = false %}
+{% if product.tags contains "hot" %}
+{% assign label_popular = true %}
+{% endif %} 
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+<div class="item-product item-list-product item-list-product2">
+  <div class="row">
+    <div class="col-md-5 col-sm-5 col-xs-5">
+      {% if settings.show_sale_label and on_sale %}
+      <span class="sale-item">{{settings.sale_label_name}}</span>
+      {% endif %}
+      <div class="product-thumb text-center zoom-rotate">
+        <a class="advs-thumb-link" href="{{ product.url | within: collection }}">
+          <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" />
+        </a>
+        <a href="javascript:void(0)" data-id="{{ product.handle }}" class="quickview-link engoj_btn_quickview"><i class="{{settings.pia_quickview}}"></i></a>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-7 col-xs-7">
+      <div class="product-info">
+        <span class="title10 text-uppercase">{{ product.type }}</span>
+        <h3 class="title24 font-bold"><a href="{{ product.url | within: collection }}" class="link-hover">{{ product.title }}</a></h3>
+        <div class="product-price">
+          {% capture price %}{{ product.price | money }}{% endcapture %}
+          {% if on_sale %} <del>{{ product.compare_at_price | money }}</del> {% endif %}
+          <ins class="font-bold color">{% if product.price_varies %}{{ 'products.general.from_text_html' | t: price: price }}{% else %}{{ price }}{% endif %}</ins>
+        </div>
+        <div class="product-rate">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+        <p class="desc">
+          {{ product.description | strip_html | truncatewords: 30}}
+        </p>
+        <a href="{{ product.url | within: collection }}" class="shop-button border hover-btn">learn more</a>
+      </div>
+    </div>
+  </div>
+</div>

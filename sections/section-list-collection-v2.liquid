@@ -1,0 +1,161 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-list-collection-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="container">
+  	<div class="popular-cate popular-cate6 bg-white">
+      <div class="title-box">
+        {% if section.settings.section_title != blank %}
+        <h3 class="title14 pull-left text-uppercase font-bold">{{section.settings.section_title}}</h3>
+        {% endif %}
+
+        {% if section.settings.section_btn_name != blank %}
+        <a href="{{section.settings.section_btn_url}}" class="font-bold pull-right link-hover">{{section.settings.section_btn_name}}</a>
+        {% endif %}
+      </div>
+      <div class="wrap-categories">
+        <div class="wrap-item" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,1],[480,2],[768,3],[1024,4],[1200,4]]">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "collection" %}
+
+          {% assign col = block.settings.block_collection %}
+
+          <div class="item-cate">
+            <div class="thumb-cate">
+              <a href="{{collections[col].url}}">
+                {% if block.settings.block_image != blank %}
+                {{block.settings.block_image|img_url:'master' | img_tag: collections[col].title }}
+                {% else %}
+                {% if collections[col] != blank %}
+                {{collections[col].image.src|img_url:'master' | img_tag: collections[col].title }}
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+                {% endif %}
+              </a>
+            </div>
+            <div class="info-cate clearfix">
+              <h3 class="title14 font-bold text-uppercase pull-left">
+                <a href="{{collections[col].url}}" class="link-hover white">
+                  {% if collections[col] != blank %}
+                  {{collections[col].title}}
+                  {% else %}
+                  Example Collection
+                  {% endif %}
+                </a>
+              </h3>
+              <span class="title12  pull-right">{{ collections[col].all_products_count }} {{ collections[col].all_products_count | pluralize: 'Item', 'Items' }}</span>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "List collections v2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Top categories"
+    },
+    {
+      "type": "text",
+      "id": "section_btn_name",
+      "label": "Button name",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "section_btn_url",
+      "label": "Button URL",
+      "default": "/collections"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "block_collection",
+          "label": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "List collections v2",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

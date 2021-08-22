@@ -1,0 +1,147 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="featured-product bg-gray">
+    <div class="container">
+      <div class="wrap-featured-product">
+        <div class="row">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "banner" %}
+          <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="featured-item">
+              <div class="info-box">
+                <div class="title-box title-featured">
+                  {% if block.settings.block_heading != blank %}
+                  <h3 class="title12 text-uppercase">{{block.settings.block_heading}}</h3>
+                  {% endif %}
+                  
+                  {% if block.settings.block_sub_heading != blank %}
+                  <h2 class="title30 text-uppercase rale-font"><span>{{block.settings.block_sub_heading}}</span></h2>
+                  {% endif %}
+                  
+                  {% if block.settings.block_content != blank %}
+                  <h3 class="title14 text-uppercase font-bold">{{block.settings.block_content}}</h3>
+                  {% endif %}
+                  
+                </div>
+                {% if block.settings.block_btn_name != blank %}
+                <a href="{{block.settings.block_url}}" class="hover-btn shop-button bg-color white">{{block.settings.block_btn_name}}</a>
+                {% endif %}
+                
+              </div>
+              <div class="thumb-box line-scale">
+                <a href="{{block.settings.block_url}}" class="advs-thumb-link">
+                  {% if block.settings.block_img != blank %}
+                  {{ block.settings.block_img | img_url:'master' | img_tag: block.settings.block_sub_heading, 'img-responsive' }}
+                  {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner v1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_img",
+          "label": "Image",
+          "info": "390 x 400px recommended"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading",
+          "default": "m o l t e s t o r e"
+        },
+        {
+          "type": "text",
+          "id": "block_sub_heading",
+          "label": "Sub heading",
+          "default": "glasses"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "sale off 10%"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_name",
+          "label": "Button name",
+          "default": "shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner v1",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

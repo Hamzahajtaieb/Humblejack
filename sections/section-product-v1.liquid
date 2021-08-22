@@ -1,0 +1,184 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-product-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="box-theshop text-center bg-white" style="background: {{section.settings.bg_color}};">
+    <div class="container">
+      <div class="title-box">
+        {% if section.settings.section_heading != blank %}
+        <h3 class="title12 text-uppercase">{{section.settings.section_heading}}</h3>
+        {% endif %}
+        
+        {% if section.settings.section_sub_heading != blank %}
+        <h2 class="title30 text-uppercase rale-font"><span style="background: {{section.settings.bg_color}};">{{section.settings.section_sub_heading}}</span></h2>
+        {% endif %}
+        
+        {% if section.settings.section_des != blank %}
+        <h3 class="title14 text-uppercase font-bold">{{section.settings.section_des}}</h3>
+        {% endif %}
+        
+      </div>
+      <ul class="nav nav-tabs list-inline-block" role="tablist">
+        {% if section.blocks.size > 0 %}
+        {%- assign i = 1 -%}
+        {% for block in section.blocks %}
+        {% if block.type == "tab" %}
+        <li role="presentation" class="{% if forloop.first %}active{% endif %}">
+          <h3><a href="#stab_{{i}}_{{ section.id }}" class="text-uppercase title12 shop-button" data-toggle="tab">{{block.settings.tab_title}}</a></h3>
+        </li>
+        {% endif %}
+        {%- assign i = i | plus : 1 -%}
+        {% endfor %}
+        {% endif %}
+      </ul>
+      <div class="content-box">
+        <div class="tab-content">
+          {% if section.blocks.size > 0 %}
+          {%- assign i = 1 -%}
+          {% for block in section.blocks %}
+          {% if block.type == "tab" %}
+          
+          {% assign products_limit = block.settings.products_limit %}
+          {% assign col = block.settings.select_collection %}
+          
+          <div id="stab_{{i}}_{{ section.id }}" class="tab-pane fade in wrap-product {% if forloop.first %}active{% endif %}" role="tabpanel">
+            <div class="wrap-item" data-pagination="false" data-autoplay="false" data-transition="fade" data-navigation="true" data-itemscustom="[[0,{% if settings.mobile_products_per_row == "1" %}1{% elsif settings.mobile_products_per_row == "2" %}2{% endif %}],[480,{% if settings.mobile_products_per_row == "1" %}1{% elsif settings.mobile_products_per_row == "2" %}2{% endif %}],[768,3],[1024,{{block.settings.products_per}}],[1200,{{block.settings.products_per}}]]">
+              {% for product in collections[col].products limit: products_limit %}
+              	{% include 'product-item-grid' %}
+              {% else %}
+                {% for i in (1..5) %}
+                  {% include 'empty-product-item-grid' %}
+                {% endfor %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+          {%- assign i = i | plus : 1 -%}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product v1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "m o l t e s t o r e"
+    },
+    {
+      "type": "text",
+      "id": "section_sub_heading",
+      "label": "Sub heading",
+      "default": "the shop"
+    },
+    {
+      "type": "text",
+      "id": "section_des",
+      "label": "Description",
+      "default": "MOST-COVETED CLOTHING"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "select_collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Title",
+          "default": "New Arrivals"
+        },
+        {
+          "type": "range",
+          "id": "products_per",
+          "label": "Products per row",
+          "min": 2,
+          "max": 6,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "label": "Limit products",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product v1",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "New Arrivals"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Latest Products"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Best Sellers"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "On Sale"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
